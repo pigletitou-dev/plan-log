@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>今日のプラン＆ログ</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy: #18324b;
+      --blue: #2f6f95;
+      --blue-light: #eaf3f7;
+      --green: #39735d;
+      --text: #26333b;
+      --muted: #6b7a83;
+      --line: #d9e1e5;
+      --background: #f6f8f9;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.6;
+    }
+    .app { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+    header { margin-bottom: 16px; }
+    h1 { color: var(--navy); font-size: clamp(1.55rem, 5vw, 2rem); margin: 0 0 4px; }
+    .date { color: var(--muted); margin: 0; }
+    .version {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: .8rem;
+      font-weight: 700;
+    }
+    .open-tip {
+      background: #fff8e8;
+      border: 1px solid #f0d9a0;
+      color: #6a5318;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 0 0 16px;
+      font-size: .9rem;
+    }
+    .nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .nav-row button {
+      flex: 1 1 160px;
+      min-height: 50px;
+      background: #eef1f2;
+      color: var(--text);
+    }
+    .nav-row button.primary {
+      background: var(--blue);
+      color: white;
+    }
+    .carry-button {
+      width: 100%;
+      margin-bottom: 12px;
+      min-height: 52px;
+      background: #f0f7f4;
+      color: var(--green);
+      border: 1px solid #c5ddd2;
+    }
+    .add-form { display: flex; gap: 8px; margin-bottom: 12px; }
+    input[type="text"] {
+      min-width: 0; flex: 1; border: 1px solid var(--line); border-radius: 8px;
+      padding: 12px 14px; background: var(--white); color: var(--text); font: inherit; font-size: 1rem;
+    }
+    input[type="text"]:focus { outline: 3px solid #c6e0ec; border-color: var(--blue); }
+    button {
+      border: 0; border-radius: 8px; padding: 11px 16px; min-height: 46px;
+      background: var(--blue); color: white; cursor: pointer; font: inherit; font-weight: 700;
+    }
+    button:hover { filter: brightness(0.94); }
+    button:focus-visible { outline: 3px solid #a9d1df; outline-offset: 2px; }
+    section { background: var(--white); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+    .section-heading { padding: 14px 16px; border-bottom: 1px solid var(--line); }
+    h2 { color: var(--navy); font-size: 1.1rem; margin: 0; }
+    .done-section h2 { color: var(--green); }
+    .items { list-style: none; padding: 0; margin: 0; }
+    .item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid #eef1f2; }
+    .item:last-child { border-bottom: 0; }
+    .item input[type="checkbox"] { width: 22px; height: 22px; flex: 0 0 auto; accent-color: var(--green); }
+    .item-text { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+    .done-section .item-text { color: var(--muted); text-decoration: line-through; }
+    .item-actions, .edit-actions { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+    .edit-button, .delete-button { min-height: 42px; padding: 7px 10px; background: transparent; color: var(--muted); font-size: .9rem; font-weight: 400; }
+    .edit-button:hover { background: var(--blue-light); color: var(--blue); }
+    .delete-button:hover { background: #fbeeee; color: #a44b4b; }
+    .edit-input { min-width: 0; flex: 1; font-size: 1rem; }
+    .save-button { min-height: 44px; padding: 8px 13px; }
+    .cancel-button { min-height: 44px; padding: 8px 13px; background: #eef1f2; color: var(--text); }
+    .item.editing { align-items: flex-start; }
+    .empty { color: var(--muted); margin: 0; padding: 16px; font-size: .95rem; }
+    .note { color: var(--muted); font-size: .85rem; margin: 0 2px 16px; }
+    .transfer-content { padding: 16px; }
+    .transfer-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .transfer-actions button { flex: 1 1 180px; min-height: 50px; }
+    .import-button { background: var(--green); }
+    .transfer-note { color: var(--muted); font-size: .85rem; margin: 10px 0 0; }
+    .status-ok { color: var(--green); font-size: .85rem; margin: 0 0 16px; }
+    .status-bad { color: #a44b4b; font-size: .9rem; margin: 0 0 16px; }
+    .date-list { list-style: none; padding: 0; margin: 0; }
+    .date-list-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      color: var(--text);
+      border: 0;
+      border-bottom: 1px solid #eef1f2;
+      border-radius: 0;
+      padding: 16px;
+      min-height: 64px;
+      font-weight: 600;
+    }
+    .date-list-item:last-child { border-bottom: 0; }
+    .date-list-item:hover { background: var(--blue-light); color: var(--blue); }
+    .date-list-meta { display: block; color: var(--muted); font-size: .85rem; font-weight: 400; margin-top: 2px; }
+    .readonly-badge {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eef1f2;
+      color: var(--muted);
+      font-size: .75rem;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    @media (max-width: 420px) {
+      .app { padding: 20px 12px 36px; }
+      .add-form { flex-direction: column; }
+      .add-form button { width: 100%; }
+      .transfer-actions { flex-direction: column; }
+      .transfer-actions button { width: 100%; }
+      .nav-row button { width: 100%; }
+      .item { align-items: flex-start; flex-wrap: wrap; }
+      .item-text, .edit-input { flex-basis: calc(100% - 32px); }
+      .item-actions { margin-left: auto; }
+      .item.editing .edit-input { flex-basis: calc(100% - 32px); }
+      .edit-actions { width: 100%; margin-left: 32px; }
+      .edit-actions button { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1 id="app-title">今日のプラン＆ログ</h1>
+      <p class="date" id="today"></p>
+      <p class="version" id="version-label">修正版 2026-09-16d</p>
+    </header>
+
+    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-16d」が出ていれば新しいファイルです。</p>
+    <p id="boot-status" class="status-ok" hidden>動作準備OK</p>
+
+    <div id="today-controls">
+      <div class="nav-row">
+        <button id="past-logs-button" type="button">過去のログ</button>
+      </div>
+      <button id="carry-button" class="carry-button" type="button" hidden>昨日の未完了を今日へ引き継ぐ</button>
+      <div class="add-form" id="add-form">
+        <label for="new-item" class="visually-hidden">今日やることを入力</label>
+        <input id="new-item" type="text" placeholder="今日やることを入力" autocomplete="off" enterkeyhint="done">
+        <button id="add-button" type="button">追加する</button>
+      </div>
+      <p class="note" id="add-note">入力して「追加する」を押すか、キーボードの確定／Enter で登録できます。ページは切り替わりません。</p>
+    </div>
+
+    <div id="past-controls" hidden>
+      <div class="nav-row">
+        <button id="back-today-button" class="primary" type="button">今日へ戻る</button>
+      </div>
+    </div>
+
+    <section id="date-list-section" aria-labelledby="date-list-title" hidden>
+      <div class="section-heading"><h2 id="date-list-title">過去のログ</h2></div>
+      <ul class="date-list" id="date-list"></ul>
+    </section>
+
+    <section id="todo-section" aria-labelledby="todo-title">
+      <div class="section-heading"><h2 id="todo-title">今日やること <span id="todo-count"></span></h2></div>
+      <ul class="items" id="todo-list"></ul>
+    </section>
+
+    <section id="done-section" class="done-section" aria-labelledby="done-title">
+      <div class="section-heading"><h2 id="done-title">完了したこと <span id="done-count"></span></h2></div>
+      <ul class="items" id="done-list"></ul>
+    </section>
+
+    <section class="transfer-section" aria-labelledby="transfer-title">
+      <div class="section-heading"><h2 id="transfer-title">データの書き出し・読み込み</h2></div>
+      <div class="transfer-content">
+        <div class="transfer-actions">
+          <button id="export-button" type="button">書き出す</button>
+          <button id="import-button" class="import-button" type="button">読み込む</button>
+        </div>
+        <input id="import-file" class="visually-hidden" type="file" accept=".json,application/json">
+        <p class="transfer-note">別の端末やURLに移す前に書き出して、そちらで読み込んでください。以前の形式（todo/doneのみ）のJSONも読み込めます。</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = "today-plan-log-items";
+      const VERSION = "修正版 2026-09-16d";
+
+      /** @type {{ version: number, days: Object.<string, {todo: Array, done: Array}> }} */
+      let store = { version: 2, days: {} };
+
+      /** "today" | "list" | "day" */
+      let viewMode = "today";
+      /** YYYY-MM-DD when viewing a past day */
+      let viewingDateKey = null;
+
+      const bootStatus = document.getElementById("boot-status");
+      const input = document.getElementById("new-item");
+      const addButton = document.getElementById("add-button");
+      const todoList = document.getElementById("todo-list");
+      const doneList = document.getElementById("done-list");
+      const exportButton = document.getElementById("export-button");
+      const importButton = document.getElementById("import-button");
+      const importFile = document.getElementById("import-file");
+      const carryButton = document.getElementById("carry-button");
+      const pastLogsButton = document.getElementById("past-logs-button");
+      const backTodayButton = document.getElementById("back-today-button");
+      const todayControls = document.getElementById("today-controls");
+      const pastControls = document.getElementById("past-controls");
+      const dateListSection = document.getElementById("date-list-section");
+      const dateList = document.getElementById("date-list");
+      const todoSection = document.getElementById("todo-section");
+      const doneSection = document.getElementById("done-section");
+
+      function showBootError(message) {
+        bootStatus.hidden = false;
+        bootStatus.className = "status-bad";
+        bootStatus.textContent = message;
+      }
+
+      function pad2(n) {
+        return n < 10 ? "0" + n : String(n);
+      }
+
+      /** Local calendar date as YYYY-MM-DD */
+      function toDateKey(date) {
+        return date.getFullYear() + "-" + pad2(date.getMonth() + 1) + "-" + pad2(date.getDate());
+      }
+
+      function todayKey() {
+        return toDateKey(new Date());
+      }
+
+      function yesterdayKey() {
+        var d = new Date();
+        d.setDate(d.getDate() - 1);
+        return toDateKey(d);
+      }
+
+      function formatJaDate(dateKey) {
+        var parts = dateKey.split("-");
+        if (parts.length !== 3) return dateKey;
+        var d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+        return new Intl.DateTimeFormat("ja-JP", { dateStyle: "full" }).format(d);
+      }
+
+      function createId() {
+        return String(Date.now()) + "-" + Math.random().toString(36).slice(2, 10);
+      }
+
+      function emptyDay() {
+        return { todo: [], done: [] };
+      }
+
+      function ensureDay(key) {
+        if (!store.days[key]) {
+          store.days[key] = emptyDay();
+        }
+        if (!Array.isArray(store.days[key].todo)) store.days[key].todo = [];
+        if (!Array.isArray(store.days[key].done)) store.days[key].done = [];
+        return store.days[key];
+      }
+
+      function normalizeItem(item, usedIds) {
+        if (!item || typeof item !== "object" || typeof item.text !== "string" || !item.text.trim()) {
+          return null;
+        }
+        var id = item.id;
+        if (typeof id === "string") id = id.trim();
+        else if (typeof id === "number" && isFinite(id)) id = String(id);
+        else id = "";
+
+        if (!id || usedIds[id]) {
+          do {
+            id = createId();
+          } while (usedIds[id]);
+        }
+        usedIds[id] = true;
+
+        var out = { id: id, text: item.text.trim() };
+        if (typeof item.sourceId === "string" && item.sourceId.trim()) {
+          out.sourceId = item.sourceId.trim();
+        }
+        return out;
+      }
+
+      function normalizeDay(day) {
+        var usedIds = {};
+        var todo = [];
+        var done = [];
+        var i;
+        var srcTodo = day && Array.isArray(day.todo) ? day.todo : [];
+        var srcDone = day && Array.isArray(day.done) ? day.done : [];
+        for (i = 0; i < srcTodo.length; i++) {
+          var t = normalizeItem(srcTodo[i], usedIds);
+          if (t) todo.push(t);
+        }
+        for (i = 0; i < srcDone.length; i++) {
+          var d = normalizeItem(srcDone[i], usedIds);
+          if (d) done.push(d);
+        }
+        return { todo: todo, done: done };
+      }
+
+      function isOldFormat(value) {
+        return (
+          value &&
+          typeof value === "object" &&
+          Array.isArray(value.todo) &&
+          Array.isArray(value.done) &&
+          !value.days
+        );
+      }
+
+      function isNewFormat(value) {
+        return value && typeof value === "object" && value.days && typeof value.days === "object";
+      }
+
+      function migrateOldToNew(oldData, dayKey) {
+        var day = normalizeDay(oldData);
+        var days = {};
+        days[dayKey] = day;
+        return { version: 2, days: days };
+      }
+
+      function normalizeStore(value) {
+        if (isOldFormat(value)) {
+          return migrateOldToNew(value, todayKey());
+        }
+        if (isNewFormat(value)) {
+          var days = {};
+          var keys = Object.keys(value.days);
+          for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            days[k] = normalizeDay(value.days[k]);
+          }
+          return { version: 2, days: days };
+        }
+        return { version: 2, days: {} };
+      }
+
+      function loadStore() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            return { version: 2, days: {} };
+          }
+          var parsed = JSON.parse(raw);
+          var wasOld = isOldFormat(parsed);
+          var normalized = normalizeStore(parsed);
+          if (wasOld) {
+            try {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+            } catch (e) {
+              // ignore write failure during migration; still use in-memory
+            }
+          }
+          return normalized;
+        } catch (error) {
+          return { version: 2, days: {} };
+        }
+      }
+
+      function save() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+        } catch (error) {
+          alert("この開き方では保存できないことがあります。ファイルをダウンロードして Chrome で開いてください。");
+        }
+      }
+
+      function getActiveDayKey() {
+        if (viewMode === "day" && viewingDateKey) return viewingDateKey;
+        return todayKey();
+      }
+
+      function isEditable() {
+        return viewMode === "today";
+      }
+
+      function createItem(item, listName, dayKey, editable) {
+        var li = document.createElement("li");
+        li.className = "item";
+
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = listName === "done";
+        checkbox.disabled = !editable;
+        checkbox.setAttribute(
+          "aria-label",
+          item.text + "を" + (checkbox.checked ? "未完了に戻す" : "完了にする")
+        );
+
+        if (editable) {
+          checkbox.addEventListener("change", function () {
+            var day = ensureDay(dayKey);
+            var from = day[listName];
+            var to = day[listName === "todo" ? "done" : "todo"];
+            var index = from.findIndex(function (entry) { return entry.id === item.id; });
+            if (index !== -1) to.push(from.splice(index, 1)[0]);
+            save();
+            render();
+          });
+        }
+
+        var text = document.createElement("span");
+        text.className = "item-text";
+        text.textContent = item.text;
+
+        li.appendChild(checkbox);
+        li.appendChild(text);
+
+        if (!editable) {
+          return li;
+        }
+
+        var editInput = document.createElement("input");
+        editInput.className = "edit-input";
+        editInput.type = "text";
+        editInput.value = item.text;
+        editInput.setAttribute("aria-label", "項目を編集");
+        editInput.hidden = true;
+
+        var editButton = document.createElement("button");
+        editButton.className = "edit-button";
+        editButton.type = "button";
+        editButton.textContent = "編集";
+
+        var deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+        deleteButton.type = "button";
+        deleteButton.textContent = "削除";
+
+        var itemActions = document.createElement("div");
+        itemActions.className = "item-actions";
+        itemActions.appendChild(editButton);
+        itemActions.appendChild(deleteButton);
+
+        var editActions = document.createElement("div");
+        editActions.className = "edit-actions";
+        editActions.hidden = true;
+
+        var saveButton = document.createElement("button");
+        saveButton.className = "save-button";
+        saveButton.type = "button";
+        saveButton.textContent = "保存";
+
+        var cancelButton = document.createElement("button");
+        cancelButton.className = "cancel-button";
+        cancelButton.type = "button";
+        cancelButton.textContent = "キャンセル";
+
+        editActions.appendChild(saveButton);
+        editActions.appendChild(cancelButton);
+
+        editButton.addEventListener("click", function () {
+          li.className = "item editing";
+          checkbox.hidden = true;
+          text.hidden = true;
+          itemActions.hidden = true;
+          editInput.hidden = false;
+          editActions.hidden = false;
+          editInput.focus();
+          editInput.select();
+        });
+
+        saveButton.addEventListener("click", function () {
+          var newText = editInput.value.trim();
+          if (!newText) {
+            editInput.focus();
+            return;
+          }
+          item.text = newText;
+          save();
+          render();
+        });
+
+        cancelButton.addEventListener("click", function () { render(); });
+
+        deleteButton.addEventListener("click", function () {
+          var day = ensureDay(dayKey);
+          day[listName] = day[listName].filter(function (entry) { return entry.id !== item.id; });
+          save();
+          render();
+        });
+
+        li.appendChild(editInput);
+        li.appendChild(itemActions);
+        li.appendChild(editActions);
+        return li;
+      }
+
+      function renderList(listElement, items, listName, dayKey, editable, emptyMessage) {
+        while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
+        if (items.length === 0) {
+          var empty = document.createElement("p");
+          empty.className = "empty";
+          empty.textContent = emptyMessage;
+          listElement.appendChild(empty);
+          return;
+        }
+        for (var i = 0; i < items.length; i++) {
+          listElement.appendChild(createItem(items[i], listName, dayKey, editable));
+        }
+      }
+
+      function updateCarryButton() {
+        if (viewMode !== "today") {
+          carryButton.hidden = true;
+          return;
+        }
+        var yKey = yesterdayKey();
+        var yDay = store.days[yKey];
+        var hasIncomplete = yDay && Array.isArray(yDay.todo) && yDay.todo.length > 0;
+        carryButton.hidden = !hasIncomplete;
+      }
+
+      function renderDateList() {
+        while (dateList.firstChild) dateList.removeChild(dateList.firstChild);
+        var keys = Object.keys(store.days).sort(function (a, b) {
+          if (a < b) return 1;
+          if (a > b) return -1;
+          return 0;
+        });
+
+        if (keys.length === 0) {
+          var empty = document.createElement("p");
+          empty.className = "empty";
+          empty.textContent = "まだログがありません。";
+          dateList.appendChild(empty);
+          return;
+        }
+
+        var tKey = todayKey();
+        for (var i = 0; i < keys.length; i++) {
+          (function (key) {
+            var day = ensureDay(key);
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "date-list-item";
+            var label = formatJaDate(key);
+            if (key === tKey) label += "（今日）";
+            btn.appendChild(document.createTextNode(label));
+            var meta = document.createElement("span");
+            meta.className = "date-list-meta";
+            meta.textContent =
+              "やること " + day.todo.length + "件 / 完了 " + day.done.length + "件";
+            btn.appendChild(meta);
+            btn.addEventListener("click", function () {
+              if (key === tKey) {
+                viewMode = "today";
+                viewingDateKey = null;
+              } else {
+                viewMode = "day";
+                viewingDateKey = key;
+              }
+              render();
+            });
+            dateList.appendChild(btn);
+          })(keys[i]);
+        }
+      }
+
+      function render() {
+        var editable = isEditable();
+        var dayKey = getActiveDayKey();
+        var day = ensureDay(dayKey);
+        var titleEl = document.getElementById("app-title");
+        var dateEl = document.getElementById("today");
+        var todoTitle = document.getElementById("todo-title");
+        var doneTitle = document.getElementById("done-title");
+
+        if (viewMode === "list") {
+          todayControls.hidden = true;
+          pastControls.hidden = false;
+          dateListSection.hidden = false;
+          todoSection.hidden = true;
+          doneSection.hidden = true;
+          titleEl.textContent = "過去のログ";
+          dateEl.textContent = "日付を選んでください";
+          renderDateList();
+          updateCarryButton();
+          return;
+        }
+
+        dateListSection.hidden = true;
+        todoSection.hidden = false;
+        doneSection.hidden = false;
+
+        if (viewMode === "today") {
+          todayControls.hidden = false;
+          pastControls.hidden = true;
+          titleEl.textContent = "今日のプラン＆ログ";
+          dateEl.textContent = formatJaDate(todayKey());
+          todoTitle.innerHTML = '今日やること <span id="todo-count"></span>';
+          doneTitle.innerHTML = '完了したこと <span id="done-count"></span>';
+        } else {
+          todayControls.hidden = true;
+          pastControls.hidden = false;
+          titleEl.textContent = "過去のログ";
+          dateEl.textContent = formatJaDate(dayKey);
+          todoTitle.innerHTML =
+            'やること <span class="readonly-badge">読み取り専用</span> <span id="todo-count"></span>';
+          doneTitle.innerHTML =
+            '完了したこと <span class="readonly-badge">読み取り専用</span> <span id="done-count"></span>';
+        }
+
+        renderList(
+          todoList,
+          day.todo,
+          "todo",
+          dayKey,
+          editable,
+          editable ? "登録するとここに表示されます。" : "この日の未完了はありません。"
+        );
+        renderList(
+          doneList,
+          day.done,
+          "done",
+          dayKey,
+          editable,
+          editable ? "完了した項目はここに記録されます。" : "この日の完了はありません。"
+        );
+
+        var todoCountEl = document.getElementById("todo-count");
+        var doneCountEl = document.getElementById("done-count");
+        if (todoCountEl) todoCountEl.textContent = "（" + day.todo.length + "件）";
+        if (doneCountEl) doneCountEl.textContent = "（" + day.done.length + "件）";
+
+        updateCarryButton();
+      }
+
+      function addItem() {
+        if (!isEditable()) return false;
+        var textValue = input.value.trim();
+        if (!textValue) {
+          input.focus();
+          return false;
+        }
+        var day = ensureDay(todayKey());
+        day.todo.push({ id: createId(), text: textValue });
+        save();
+        render();
+        input.value = "";
+        input.focus();
+        return false;
+      }
+
+      function carryFromYesterday() {
+        var yKey = yesterdayKey();
+        var tKey = todayKey();
+        var yDay = ensureDay(yKey);
+        var tDay = ensureDay(tKey);
+
+        var existingSourceIds = {};
+        var i;
+        for (i = 0; i < tDay.todo.length; i++) {
+          if (tDay.todo[i].sourceId) existingSourceIds[tDay.todo[i].sourceId] = true;
+        }
+        for (i = 0; i < tDay.done.length; i++) {
+          if (tDay.done[i].sourceId) existingSourceIds[tDay.done[i].sourceId] = true;
+        }
+
+        var added = 0;
+        for (i = 0; i < yDay.todo.length; i++) {
+          var src = yDay.todo[i];
+          if (!src || !src.id) continue;
+          if (existingSourceIds[src.id]) continue;
+          tDay.todo.push({
+            id: createId(),
+            text: src.text,
+            sourceId: src.id
+          });
+          existingSourceIds[src.id] = true;
+          added++;
+        }
+
+        if (added === 0) {
+          alert("引き継げる新しい未完了はありません。");
+          return;
+        }
+
+        save();
+        render();
+        alert(added + "件を今日へ引き継ぎました。");
+      }
+
+      try {
+        document.getElementById("version-label").textContent = VERSION;
+        document.getElementById("open-tip").textContent =
+          "チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「" +
+          VERSION +
+          "」が出ていれば新しいファイルです。";
+
+        store = loadStore();
+        ensureDay(todayKey());
+
+        window.addPlanItem = addItem;
+
+        addButton.addEventListener("click", function (event) {
+          if (event && event.preventDefault) event.preventDefault();
+          if (event && event.stopPropagation) event.stopPropagation();
+          addItem();
+          return false;
+        });
+
+        function onEnter(event) {
+          var key = event.key || event.keyCode;
+          if (key !== "Enter" && key !== 13) return;
+          if (event.preventDefault) event.preventDefault();
+          if (event.stopPropagation) event.stopPropagation();
+          addItem();
+          return false;
+        }
+
+        input.addEventListener("keydown", onEnter);
+        input.addEventListener("keypress", onEnter);
+
+        carryButton.addEventListener("click", function () {
+          carryFromYesterday();
+        });
+
+        pastLogsButton.addEventListener("click", function () {
+          viewMode = "list";
+          viewingDateKey = null;
+          render();
+        });
+
+        backTodayButton.addEventListener("click", function () {
+          viewMode = "today";
+          viewingDateKey = null;
+          render();
+        });
+
+        exportButton.addEventListener("click", function () {
+          var blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement("a");
+          link.href = url;
+          link.download = "plan-log-backup-" + todayKey() + ".json";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 0);
+        });
+
+        importButton.addEventListener("click", function () { importFile.click(); });
+
+        importFile.addEventListener("change", function () {
+          var file = importFile.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = function () {
+            try {
+              var parsed = JSON.parse(String(reader.result));
+              var imported;
+
+              if (isNewFormat(parsed)) {
+                imported = normalizeStore(parsed);
+                if (!confirm("今の全データを、読み込んだ内容で置き換えますか？（すべての日付のログが置き換わります）")) {
+                  return;
+                }
+              } else if (isOldFormat(parsed)) {
+                imported = migrateOldToNew(parsed, todayKey());
+                if (!confirm(
+                  "以前の形式のJSONです。今日（" +
+                    todayKey() +
+                    "）のログとして取り込み、今の全データを置き換えますか？"
+                )) {
+                  return;
+                }
+              } else {
+                alert("読み込めませんでした。バックアップJSONを確認してください。");
+                return;
+              }
+
+              store = imported;
+              ensureDay(todayKey());
+              save();
+              viewMode = "today";
+              viewingDateKey = null;
+              render();
+              alert("データを読み込みました。");
+            } catch (error) {
+              alert("読み込めませんでした。JSONファイルを確認してください。");
+            } finally {
+              importFile.value = "";
+            }
+          };
+          reader.readAsText(file);
+        });
+
+        render();
+        bootStatus.hidden = false;
+        bootStatus.className = "status-ok";
+        bootStatus.textContent = "動作準備OK（" + VERSION + "）";
+      } catch (error) {
+        showBootError("この開き方では動作できません。ファイルをダウンロードし、Chromeの「ファイルを開く」で開いてください。");
+      }
+    })();
+  </script>
+</body>
+</html>
