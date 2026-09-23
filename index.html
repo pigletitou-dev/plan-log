@@ -189,7 +189,36 @@
     }
     .save-button { background: var(--navy); color: white; }
     .cancel-button { background: #eef1f2; color: var(--text); }
-    .item.editing { padding-top: 8px; padding-bottom: 8px; }
+    .item.editing {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    .item.editing .edit-input {
+      flex: 1 1 100%;
+      order: 1;
+    }
+    .edit-category-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      width: 100%;
+      order: 2;
+      margin-top: 6px;
+    }
+    .edit-category-picker .cat-toggle {
+      min-height: 36px;
+      padding: 4px 10px;
+      font-size: .85rem;
+    }
+    .item.editing .edit-actions {
+      width: 100%;
+      order: 3;
+      margin-top: 6px;
+      justify-content: flex-end;
+      gap: 6px;
+    }
     .empty { color: var(--muted); margin: 0; padding: 10px 12px; font-size: .9rem; }
 
     .transfer-section { background: transparent; border: 0; }
@@ -410,10 +439,10 @@
     <header>
       <h1 id="app-title">今日のプラン＆ログ</h1>
       <p class="date" id="today"></p>
-      <p class="version" id="version-label">修正版 2026-09-23c</p>
+      <p class="version" id="version-label">修正版 2026-09-23d</p>
     </header>
 
-    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-23c」が出ていれば新しいファイルです。</p>
+    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-23d」が出ていれば新しいファイルです。</p>
     <p id="boot-status" class="status-ok" hidden>動作準備OK</p>
 
     <div id="new-day-banner" class="new-day-banner" hidden>
@@ -513,7 +542,7 @@
   <script>
     (function () {
       const STORAGE_KEY = "today-plan-log-items";
-      const VERSION = "修正版 2026-09-23c";
+      const VERSION = "修正版 2026-09-23d";
       const LAST_CATEGORY_KEY = "plan-log-last-category";
       const COLLAPSE_KEY = "plan-log-category-collapse";
       const VALID_CATEGORIES = { housework: true, work: true, other1: true, other2: true };
@@ -1083,6 +1112,35 @@
         editInput.setAttribute("aria-label", "項目を編集");
         editInput.hidden = true;
 
+        var editCategoryPicker = document.createElement("div");
+        editCategoryPicker.className = "edit-category-picker category-picker";
+        editCategoryPicker.setAttribute("role", "group");
+        editCategoryPicker.setAttribute("aria-label", "分類を変更");
+        editCategoryPicker.hidden = true;
+        var editSelectedCat = cat;
+        var ci;
+        for (ci = 0; ci < CATEGORY_ORDER.length; ci++) {
+          (function (catId) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "cat-toggle cat-" + catId;
+            btn.setAttribute("data-cat", catId);
+            btn.setAttribute("aria-pressed", catId === editSelectedCat ? "true" : "false");
+            btn.textContent = "［" + (CATEGORY_EMOJI[catId] || "") + " " + getCategoryLabel(catId) + "］";
+            btn.addEventListener("click", function () {
+              editSelectedCat = catId;
+              var all = editCategoryPicker.querySelectorAll(".cat-toggle");
+              var k;
+              for (k = 0; k < all.length; k++) {
+                var id = all[k].getAttribute("data-cat");
+                all[k].setAttribute("aria-pressed", id === editSelectedCat ? "true" : "false");
+              }
+              li.className = "item editing cat-" + editSelectedCat;
+            });
+            editCategoryPicker.appendChild(btn);
+          })(CATEGORY_ORDER[ci]);
+        }
+
         var editButton = document.createElement("button");
         editButton.className = "edit-button";
         editButton.type = "button";
@@ -1116,11 +1174,19 @@
         editActions.appendChild(cancelButton);
 
         editButton.addEventListener("click", function () {
-          li.className = "item editing cat-" + cat;
+          editSelectedCat = normalizeCategory(item.category);
+          var all = editCategoryPicker.querySelectorAll(".cat-toggle");
+          var k;
+          for (k = 0; k < all.length; k++) {
+            var id = all[k].getAttribute("data-cat");
+            all[k].setAttribute("aria-pressed", id === editSelectedCat ? "true" : "false");
+          }
+          li.className = "item editing cat-" + editSelectedCat;
           checkbox.hidden = true;
           text.hidden = true;
           itemActions.hidden = true;
           editInput.hidden = false;
+          editCategoryPicker.hidden = false;
           editActions.hidden = false;
           editInput.focus();
           editInput.select();
@@ -1133,6 +1199,7 @@
             return;
           }
           item.text = newText;
+          item.category = normalizeCategory(editSelectedCat);
           save();
           render();
         });
@@ -1147,6 +1214,7 @@
         });
 
         li.appendChild(editInput);
+        li.appendChild(editCategoryPicker);
         li.appendChild(itemActions);
         li.appendChild(editActions);
         return li;
