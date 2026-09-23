@@ -235,6 +235,170 @@
       vertical-align: middle;
     }
     .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    .new-day-banner {
+      background: #eef6fb;
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 0 0 14px;
+    }
+    .new-day-banner p {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: .95rem;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    .start-day-button {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      padding: 10px 14px;
+      background: var(--navy);
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 10px;
+    }
+    .start-day-button:hover { filter: brightness(1.06); }
+    .category-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 10px;
+    }
+    .cat-toggle {
+      min-height: 36px;
+      padding: 6px 12px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 700;
+    }
+    .cat-toggle[data-cat="housework"] { border-color: #b8d4c8; color: #39735d; }
+    .cat-toggle[data-cat="work"] { border-color: #b5d0df; color: #2f6f95; }
+    .cat-toggle[data-cat="other1"] { border-color: #d4c0d8; color: #6b4f7a; }
+    .cat-toggle[data-cat="other2"] { border-color: #c8d0d4; color: #6b7a83; }
+    .cat-toggle[aria-pressed="true"] { color: #fff; }
+    .cat-toggle[data-cat="housework"][aria-pressed="true"] {
+      background: #39735d; border-color: #39735d;
+    }
+    .cat-toggle[data-cat="work"][aria-pressed="true"] {
+      background: #2f6f95; border-color: #2f6f95;
+    }
+    .cat-toggle[data-cat="other1"][aria-pressed="true"] {
+      background: #6b4f7a; border-color: #6b4f7a;
+    }
+    .cat-toggle[data-cat="other2"][aria-pressed="true"] {
+      background: #6b7a83; border-color: #6b7a83;
+    }
+
+    .cat-group { border-bottom: 1px solid #e8eef1; }
+    .cat-group:last-child { border-bottom: 0; }
+    .cat-header {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      min-height: 40px;
+      background: #f7fafb;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: .92rem;
+      border-radius: 0;
+      text-align: left;
+    }
+    .cat-header:hover { filter: brightness(0.98); }
+    .cat-header-label { flex: 1; min-width: 0; }
+    .cat-chevron { color: var(--muted); font-size: .78rem; flex: 0 0 auto; }
+    .cat-items { list-style: none; padding: 0; margin: 0; }
+    .item.cat-housework { border-left: 3px solid #39735d; }
+    .item.cat-work { border-left: 3px solid #2f6f95; }
+    .item.cat-other1 { border-left: 3px solid #6b4f7a; }
+    .item.cat-other2 { border-left: 3px solid #9aa7ae; }
+
+    .cat-settings-toggle {
+      display: block;
+      width: 100%;
+      text-align: left;
+      min-height: 34px;
+      padding: 6px 2px;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      background: transparent;
+    }
+    .cat-settings-panel {
+      background: #f7fafb;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin: 0 0 12px;
+    }
+    .cat-settings-panel[hidden] { display: none !important; }
+    .cat-settings-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 8px;
+    }
+    .cat-settings-row:last-of-type { margin-bottom: 10px; }
+    .cat-settings-emoji {
+      flex: 0 0 auto;
+      width: 1.6em;
+      text-align: center;
+      font-size: 1.05rem;
+    }
+    .cat-settings-row label {
+      flex: 0 0 auto;
+      min-width: 4.5em;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 600;
+    }
+    .cat-settings-row input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      min-height: 36px;
+      background: var(--white);
+      color: var(--text);
+      font: inherit;
+      font-size: .95rem;
+    }
+    .cat-settings-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cat-settings-save {
+      min-height: 34px;
+      padding: 4px 12px;
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      border-radius: 8px;
+    }
+    .cat-settings-cancel {
+      min-height: 34px;
+      padding: 4px 12px;
+      background: #eef1f2;
+      color: var(--text);
+      font-weight: 600;
+      border-radius: 8px;
+    }
+    .cat-settings-hint {
+      color: var(--muted);
+      font-size: .78rem;
+      margin: 0 0 8px;
+      line-height: 1.45;
+    }
+
     @media (max-width: 520px) {
       .add-form { flex-direction: column; }
       .add-button { width: 100%; }
@@ -246,15 +410,26 @@
     <header>
       <h1 id="app-title">今日のプラン＆ログ</h1>
       <p class="date" id="today"></p>
-      <p class="version" id="version-label">修正版 2026-09-18</p>
+      <p class="version" id="version-label">修正版 2026-09-23c</p>
     </header>
 
-    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-18」が出ていれば新しいファイルです。</p>
+    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-23c」が出ていれば新しいファイルです。</p>
     <p id="boot-status" class="status-ok" hidden>動作準備OK</p>
+
+    <div id="new-day-banner" class="new-day-banner" hidden>
+      <p id="new-day-message"></p>
+      <button id="start-day-button" class="start-day-button" type="button"></button>
+    </div>
 
     <div id="today-controls">
       <section class="composer" aria-labelledby="add-title">
         <h2 id="add-title">今日やることを追加</h2>
+        <div class="category-picker" id="category-picker" role="group" aria-label="カテゴリ">
+          <button type="button" class="cat-toggle" data-cat="housework" aria-pressed="false">［🏠 家事］</button>
+          <button type="button" class="cat-toggle" data-cat="work" aria-pressed="false">［💼 仕事］</button>
+          <button type="button" class="cat-toggle" data-cat="other1" aria-pressed="false">［📝 その他1］</button>
+          <button type="button" class="cat-toggle" data-cat="other2" aria-pressed="true">［📋 その他2］</button>
+        </div>
         <div class="add-form" id="add-form">
           <label for="new-item" class="visually-hidden">今日やることを入力</label>
           <input id="new-item" type="text" placeholder="今日やることを入力" autocomplete="off" enterkeyhint="done">
@@ -277,14 +452,14 @@
 
     <section id="todo-section" class="list-section" aria-labelledby="todo-title">
       <div class="section-heading"><h2 id="todo-title">今日やること <span id="todo-count"></span></h2></div>
-      <ul class="items" id="todo-list"></ul>
+      <div class="items" id="todo-list"></div>
     </section>
 
     <button id="carry-button" class="carry-button" type="button" hidden>昨日の未完了を今日へ引き継ぐ</button>
 
     <section id="done-section" class="list-section done-section" aria-labelledby="done-title">
       <div class="section-heading"><h2 id="done-title">完了したこと <span id="done-count"></span></h2></div>
-      <ul class="items" id="done-list"></ul>
+      <div class="items" id="done-list"></div>
     </section>
 
     <div id="secondary-nav" class="secondary-nav">
@@ -294,6 +469,34 @@
     <section class="transfer-section" aria-labelledby="transfer-title">
       <div class="section-heading"><h2 id="transfer-title">データ管理</h2></div>
       <div class="transfer-content">
+        <button id="cat-settings-toggle" class="cat-settings-toggle" type="button">分類名の設定</button>
+        <div id="cat-settings-panel" class="cat-settings-panel" hidden>
+          <p class="cat-settings-hint">表示名だけ変更できます。保存済みの項目の分類IDは変わりません。</p>
+          <div class="cat-settings-row">
+            <span class="cat-settings-emoji" aria-hidden="true">🏠</span>
+            <label for="cat-label-housework">家事</label>
+            <input id="cat-label-housework" type="text" data-cat-id="housework" autocomplete="off">
+          </div>
+          <div class="cat-settings-row">
+            <span class="cat-settings-emoji" aria-hidden="true">💼</span>
+            <label for="cat-label-work">仕事</label>
+            <input id="cat-label-work" type="text" data-cat-id="work" autocomplete="off">
+          </div>
+          <div class="cat-settings-row">
+            <span class="cat-settings-emoji" aria-hidden="true">📝</span>
+            <label for="cat-label-other1">その他1</label>
+            <input id="cat-label-other1" type="text" data-cat-id="other1" autocomplete="off">
+          </div>
+          <div class="cat-settings-row">
+            <span class="cat-settings-emoji" aria-hidden="true">📋</span>
+            <label for="cat-label-other2">その他2</label>
+            <input id="cat-label-other2" type="text" data-cat-id="other2" autocomplete="off">
+          </div>
+          <div class="cat-settings-actions">
+            <button id="cat-settings-save" class="cat-settings-save" type="button">保存</button>
+            <button id="cat-settings-cancel" class="cat-settings-cancel" type="button">閉じる</button>
+          </div>
+        </div>
         <div class="backup-block">
           <button id="export-button" class="ghost-button" type="button">データを書き出す</button>
           <p>現在のプラン＆ログのデータをバックアップファイルとして保存します。</p>
@@ -310,15 +513,33 @@
   <script>
     (function () {
       const STORAGE_KEY = "today-plan-log-items";
-      const VERSION = "修正版 2026-09-18";
+      const VERSION = "修正版 2026-09-23c";
+      const LAST_CATEGORY_KEY = "plan-log-last-category";
+      const COLLAPSE_KEY = "plan-log-category-collapse";
+      const VALID_CATEGORIES = { housework: true, work: true, other1: true, other2: true };
+      const CATEGORY_ORDER = ["work", "other1", "housework", "other2"];
+      const CATEGORY_EMOJI = {
+        housework: "🏠",
+        work: "💼",
+        other1: "📝",
+        other2: "📋"
+      };
+      const DEFAULT_CATEGORY_LABELS = {
+        housework: "家事",
+        work: "仕事",
+        other1: "その他1",
+        other2: "その他2"
+      };
 
-      /** @type {{ version: number, days: Object.<string, {todo: Array, done: Array}> }} */
-      let store = { version: 2, days: {} };
+      /** @type {{ version: number, activeDayKey: string|null, days: Object.<string, {todo: Array, done: Array}>, categoryLabels: Object.<string, string> }} */
+      let store = { version: 3, activeDayKey: null, days: {}, categoryLabels: Object.assign({}, DEFAULT_CATEGORY_LABELS) };
 
-      /** "today" | "list" | "day" */
+      /** "today" | "list" | "day" — "today" means the working-day main view */
       let viewMode = "today";
-      /** YYYY-MM-DD when viewing a past day */
+      /** YYYY-MM-DD when viewing a past day (read-only) */
       let viewingDateKey = null;
+      /** Previous activeDayKey remembered when starting a new calendar day (session) */
+      let carrySourceKey = null;
 
       const bootStatus = document.getElementById("boot-status");
       const input = document.getElementById("new-item");
@@ -338,6 +559,162 @@
       const dateList = document.getElementById("date-list");
       const todoSection = document.getElementById("todo-section");
       const doneSection = document.getElementById("done-section");
+      const newDayBanner = document.getElementById("new-day-banner");
+      const newDayMessage = document.getElementById("new-day-message");
+      const startDayButton = document.getElementById("start-day-button");
+      const categoryPicker = document.getElementById("category-picker");
+      const catSettingsToggle = document.getElementById("cat-settings-toggle");
+      const catSettingsPanel = document.getElementById("cat-settings-panel");
+      const catSettingsSave = document.getElementById("cat-settings-save");
+      const catSettingsCancel = document.getElementById("cat-settings-cancel");
+
+      function emptyStore() {
+        return {
+          version: 3,
+          activeDayKey: null,
+          days: {},
+          categoryLabels: Object.assign({}, DEFAULT_CATEGORY_LABELS)
+        };
+      }
+
+      function normalizeCategory(cat) {
+        if (cat === "property") return "other1";
+        if (cat === "other") return "other2";
+        if (typeof cat === "string" && VALID_CATEGORIES[cat]) return cat;
+        return "other2";
+      }
+
+      function normalizeCategoryLabels(raw) {
+        var out = Object.assign({}, DEFAULT_CATEGORY_LABELS);
+        if (!raw || typeof raw !== "object") return out;
+        var ids = Object.keys(DEFAULT_CATEGORY_LABELS);
+        for (var i = 0; i < ids.length; i++) {
+          var id = ids[i];
+          var v = raw[id];
+          if (typeof v === "string" && v.trim()) out[id] = v.trim();
+        }
+        // Merge legacy custom labels if present under old keys
+        if (typeof raw.property === "string" && raw.property.trim() && out.other1 === DEFAULT_CATEGORY_LABELS.other1) {
+          out.other1 = raw.property.trim();
+        }
+        if (typeof raw.other === "string" && raw.other.trim() && out.other2 === DEFAULT_CATEGORY_LABELS.other2) {
+          out.other2 = raw.other.trim();
+        }
+        return out;
+      }
+
+      function getCategoryLabel(cat) {
+        cat = normalizeCategory(cat);
+        var labels = store.categoryLabels || DEFAULT_CATEGORY_LABELS;
+        var label = labels[cat];
+        if (typeof label === "string" && label.trim()) return label.trim();
+        return DEFAULT_CATEGORY_LABELS[cat] || cat;
+      }
+
+      function getSelectedCategory() {
+        try {
+          var raw = localStorage.getItem(LAST_CATEGORY_KEY);
+          return normalizeCategory(raw);
+        } catch (e) {
+          return "other2";
+        }
+      }
+
+      function setSelectedCategory(cat) {
+        cat = normalizeCategory(cat);
+        try {
+          localStorage.setItem(LAST_CATEGORY_KEY, cat);
+        } catch (e) {
+          // ignore
+        }
+        syncCategoryPicker();
+      }
+
+      function syncCategoryPicker() {
+        if (!categoryPicker) return;
+        var selected = getSelectedCategory();
+        var buttons = categoryPicker.querySelectorAll(".cat-toggle");
+        for (var i = 0; i < buttons.length; i++) {
+          var btn = buttons[i];
+          var id = btn.getAttribute("data-cat");
+          var emoji = CATEGORY_EMOJI[id] || "";
+          var label = getCategoryLabel(id);
+          btn.textContent = "［" + emoji + " " + label + "］";
+          var pressed = id === selected;
+          btn.setAttribute("aria-pressed", pressed ? "true" : "false");
+        }
+      }
+
+      function fillCategorySettingsForm() {
+        var ids = ["housework", "work", "other1", "other2"];
+        for (var i = 0; i < ids.length; i++) {
+          var id = ids[i];
+          var input = document.getElementById("cat-label-" + id);
+          if (input) input.value = getCategoryLabel(id);
+        }
+      }
+
+      function openCategorySettings() {
+        if (!catSettingsPanel) return;
+        fillCategorySettingsForm();
+        catSettingsPanel.hidden = false;
+      }
+
+      function closeCategorySettings() {
+        if (!catSettingsPanel) return;
+        catSettingsPanel.hidden = true;
+      }
+
+      function saveCategoryLabels() {
+        var ids = ["housework", "work", "other1", "other2"];
+        var next = Object.assign({}, DEFAULT_CATEGORY_LABELS);
+        for (var i = 0; i < ids.length; i++) {
+          var id = ids[i];
+          var input = document.getElementById("cat-label-" + id);
+          var val = input ? String(input.value || "").trim() : "";
+          if (!val) {
+            alert("分類名は空にできません。");
+            if (input) input.focus();
+            return;
+          }
+          next[id] = val;
+        }
+        store.categoryLabels = next;
+        save();
+        syncCategoryPicker();
+        render();
+        closeCategorySettings();
+      }
+
+      function loadCollapseState() {
+        try {
+          var raw = localStorage.getItem(COLLAPSE_KEY);
+          if (!raw) return {};
+          var parsed = JSON.parse(raw);
+          return parsed && typeof parsed === "object" ? parsed : {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveCollapseState(state) {
+        try {
+          localStorage.setItem(COLLAPSE_KEY, JSON.stringify(state));
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      function isCategoryCollapsed(cat) {
+        var state = loadCollapseState();
+        return !!state[cat];
+      }
+
+      function toggleCategoryCollapse(cat) {
+        var state = loadCollapseState();
+        state[cat] = !state[cat];
+        saveCollapseState(state);
+      }
 
       function showBootError(message) {
         bootStatus.hidden = false;
@@ -354,14 +731,13 @@
         return date.getFullYear() + "-" + pad2(date.getMonth() + 1) + "-" + pad2(date.getDate());
       }
 
-      function todayKey() {
+      function calendarTodayKey() {
         return toDateKey(new Date());
       }
 
-      function yesterdayKey() {
-        var d = new Date();
-        d.setDate(d.getDate() - 1);
-        return toDateKey(d);
+      /** Day shown/edited on the main screen */
+      function workingDayKey() {
+        return store.activeDayKey;
       }
 
       function formatJaDate(dateKey) {
@@ -369,6 +745,12 @@
         if (parts.length !== 3) return dateKey;
         var d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
         return new Intl.DateTimeFormat("ja-JP", { dateStyle: "full" }).format(d);
+      }
+
+      function formatJaMonthDay(dateKey) {
+        var parts = dateKey.split("-");
+        if (parts.length !== 3) return dateKey;
+        return Number(parts[1]) + "月" + Number(parts[2]) + "日";
       }
 
       function createId() {
@@ -380,12 +762,20 @@
       }
 
       function ensureDay(key) {
+        if (!key) return emptyDay();
         if (!store.days[key]) {
           store.days[key] = emptyDay();
         }
         if (!Array.isArray(store.days[key].todo)) store.days[key].todo = [];
         if (!Array.isArray(store.days[key].done)) store.days[key].done = [];
         return store.days[key];
+      }
+
+      function latestDayKey(days) {
+        var keys = Object.keys(days || {});
+        if (keys.length === 0) return null;
+        keys.sort();
+        return keys[keys.length - 1];
       }
 
       function normalizeItem(item, usedIds) {
@@ -404,9 +794,12 @@
         }
         usedIds[id] = true;
 
-        var out = { id: id, text: item.text.trim() };
+        var out = { id: id, text: item.text.trim(), category: normalizeCategory(item.category) };
         if (typeof item.sourceId === "string" && item.sourceId.trim()) {
           out.sourceId = item.sourceId.trim();
+        }
+        if (typeof item.completedAt === "string" && item.completedAt.trim()) {
+          out.completedAt = item.completedAt.trim();
         }
         return out;
       }
@@ -447,12 +840,17 @@
         var day = normalizeDay(oldData);
         var days = {};
         days[dayKey] = day;
-        return { version: 2, days: days };
+        return {
+          version: 3,
+          activeDayKey: dayKey,
+          days: days,
+          categoryLabels: normalizeCategoryLabels(oldData && oldData.categoryLabels)
+        };
       }
 
       function normalizeStore(value) {
         if (isOldFormat(value)) {
-          return migrateOldToNew(value, todayKey());
+          return migrateOldToNew(value, calendarTodayKey());
         }
         if (isNewFormat(value)) {
           var days = {};
@@ -461,30 +859,82 @@
             var k = keys[i];
             days[k] = normalizeDay(value.days[k]);
           }
-          return { version: 2, days: days };
+          var activeDayKey;
+          var hasActive = Object.prototype.hasOwnProperty.call(value, "activeDayKey");
+          if (value.version >= 3 && hasActive) {
+            if (value.activeDayKey === null) {
+              activeDayKey = null;
+            } else if (typeof value.activeDayKey === "string" && value.activeDayKey) {
+              activeDayKey = value.activeDayKey;
+            } else {
+              activeDayKey = latestDayKey(days);
+            }
+          } else {
+            // version 2 or missing activeDayKey: chronologically latest, or null if empty
+            activeDayKey = latestDayKey(days);
+          }
+          return {
+            version: 3,
+            activeDayKey: activeDayKey,
+            days: days,
+            categoryLabels: normalizeCategoryLabels(value.categoryLabels)
+          };
         }
-        return { version: 2, days: {} };
+        return emptyStore();
+      }
+
+      function storeNeedsCategoryMigration(parsed) {
+        if (!parsed || typeof parsed !== "object") return true;
+        if (!Object.prototype.hasOwnProperty.call(parsed, "categoryLabels")) return true;
+        if (!isNewFormat(parsed)) return false;
+        var dayKeys = Object.keys(parsed.days || {});
+        for (var di = 0; di < dayKeys.length; di++) {
+          var day = parsed.days[dayKeys[di]] || {};
+          var lists = [day.todo, day.done];
+          for (var li = 0; li < lists.length; li++) {
+            var arr = Array.isArray(lists[li]) ? lists[li] : [];
+            for (var j = 0; j < arr.length; j++) {
+              var c = arr[j] && arr[j].category;
+              if (c === "property" || c === "other") return true;
+              if (c == null || c === "" || typeof c !== "string" || !VALID_CATEGORIES[c]) return true;
+            }
+          }
+        }
+        return false;
       }
 
       function loadStore() {
         try {
           var raw = localStorage.getItem(STORAGE_KEY);
           if (!raw) {
-            return { version: 2, days: {} };
+            return emptyStore();
           }
           var parsed = JSON.parse(raw);
-          var wasOld = isOldFormat(parsed);
           var normalized = normalizeStore(parsed);
-          if (wasOld) {
+          var needsPersist =
+            isOldFormat(parsed) ||
+            !parsed ||
+            parsed.version !== 3 ||
+            !Object.prototype.hasOwnProperty.call(parsed, "activeDayKey") ||
+            storeNeedsCategoryMigration(parsed);
+          if (needsPersist) {
             try {
               localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
             } catch (e) {
               // ignore write failure during migration; still use in-memory
             }
           }
+          // Migrate last-selected category key in place (property→other1, other→other2)
+          try {
+            var last = localStorage.getItem(LAST_CATEGORY_KEY);
+            var mapped = normalizeCategory(last);
+            if (last !== mapped) localStorage.setItem(LAST_CATEGORY_KEY, mapped);
+          } catch (e2) {
+            // ignore
+          }
           return normalized;
         } catch (error) {
-          return { version: 2, days: {} };
+          return emptyStore();
         }
       }
 
@@ -496,18 +946,95 @@
         }
       }
 
-      function getActiveDayKey() {
+      /** Day key for the lists currently shown */
+      function getDisplayDayKey() {
         if (viewMode === "day" && viewingDateKey) return viewingDateKey;
-        return todayKey();
+        return store.activeDayKey;
       }
 
       function isEditable() {
-        return viewMode === "today";
+        return viewMode === "today" && !!store.activeDayKey;
+      }
+
+      function findCarrySourceKey() {
+        if (
+          carrySourceKey &&
+          store.days[carrySourceKey] &&
+          Array.isArray(store.days[carrySourceKey].todo) &&
+          store.days[carrySourceKey].todo.length > 0
+        ) {
+          return carrySourceKey;
+        }
+        var active = store.activeDayKey;
+        if (!active) return null;
+        var candidates = Object.keys(store.days)
+          .filter(function (k) {
+            return (
+              k < active &&
+              store.days[k] &&
+              Array.isArray(store.days[k].todo) &&
+              store.days[k].todo.length > 0
+            );
+          })
+          .sort();
+        if (candidates.length === 0) return null;
+        return candidates[candidates.length - 1];
+      }
+
+      function startCalendarToday() {
+        var cal = calendarTodayKey();
+        var prev = store.activeDayKey;
+        if (!store.days[cal]) {
+          store.days[cal] = emptyDay();
+        } else {
+          ensureDay(cal);
+        }
+        if (prev && prev !== cal) {
+          carrySourceKey = prev;
+        } else if (!prev) {
+          carrySourceKey = null;
+        }
+        store.activeDayKey = cal;
+        save();
+        viewMode = "today";
+        viewingDateKey = null;
+        render();
+      }
+
+      function updateNewDayBanner() {
+        if (viewMode !== "today") {
+          newDayBanner.hidden = true;
+          return;
+        }
+        var cal = calendarTodayKey();
+        var active = store.activeDayKey;
+        if (active === cal) {
+          newDayBanner.hidden = true;
+          return;
+        }
+        newDayBanner.hidden = false;
+        if (!active) {
+          newDayMessage.textContent =
+            "カレンダー上の今日は" +
+            formatJaDate(cal) +
+            "です。まだ Plan & Log が開始されていません。";
+          startDayButton.textContent = "今日のPlan & Logを作る";
+        } else {
+          newDayMessage.textContent =
+            "カレンダー上の今日は" +
+            formatJaDate(cal) +
+            "です。いま表示しているのは" +
+            formatJaMonthDay(active) +
+            "分です。";
+          startDayButton.textContent = formatJaMonthDay(cal) + "分を開始する";
+        }
       }
 
       function createItem(item, listName, dayKey, editable) {
         var li = document.createElement("li");
-        li.className = "item";
+        var cat = normalizeCategory(item.category);
+        li.className = "item cat-" + cat;
+        li.setAttribute("data-category", cat);
 
         var checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -524,7 +1051,15 @@
             var from = day[listName];
             var to = day[listName === "todo" ? "done" : "todo"];
             var index = from.findIndex(function (entry) { return entry.id === item.id; });
-            if (index !== -1) to.push(from.splice(index, 1)[0]);
+            if (index !== -1) {
+              var moved = from.splice(index, 1)[0];
+              if (listName === "todo") {
+                moved.completedAt = new Date().toISOString();
+              } else if (moved.completedAt) {
+                delete moved.completedAt;
+              }
+              to.push(moved);
+            }
             save();
             render();
           });
@@ -581,7 +1116,7 @@
         editActions.appendChild(cancelButton);
 
         editButton.addEventListener("click", function () {
-          li.className = "item editing";
+          li.className = "item editing cat-" + cat;
           checkbox.hidden = true;
           text.hidden = true;
           itemActions.hidden = true;
@@ -617,6 +1152,20 @@
         return li;
       }
 
+      function groupItemsByCategory(items) {
+        var groups = {};
+        var i;
+        for (i = 0; i < CATEGORY_ORDER.length; i++) {
+          groups[CATEGORY_ORDER[i]] = [];
+        }
+        for (i = 0; i < items.length; i++) {
+          var cat = normalizeCategory(items[i].category);
+          if (!groups[cat]) groups[cat] = [];
+          groups[cat].push(items[i]);
+        }
+        return groups;
+      }
+
       function renderList(listElement, items, listName, dayKey, editable, emptyMessage) {
         while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
         if (items.length === 0) {
@@ -626,20 +1175,62 @@
           listElement.appendChild(empty);
           return;
         }
-        for (var i = 0; i < items.length; i++) {
-          listElement.appendChild(createItem(items[i], listName, dayKey, editable));
+
+        var groups = groupItemsByCategory(items);
+        for (var gi = 0; gi < CATEGORY_ORDER.length; gi++) {
+          (function (cat) {
+            var catItems = groups[cat] || [];
+            if (catItems.length === 0) return;
+
+            var collapsed = isCategoryCollapsed(cat);
+            var group = document.createElement("div");
+            group.className = "cat-group";
+            group.setAttribute("data-category", cat);
+
+            var header = document.createElement("button");
+            header.type = "button";
+            header.className = "cat-header";
+            header.setAttribute("aria-expanded", collapsed ? "false" : "true");
+            var label = document.createElement("span");
+            label.className = "cat-header-label";
+            label.textContent =
+              (CATEGORY_EMOJI[cat] || "") +
+              " " +
+              getCategoryLabel(cat) +
+              "（" +
+              catItems.length +
+              "件）";
+            var chevron = document.createElement("span");
+            chevron.className = "cat-chevron";
+            chevron.textContent = collapsed ? "▶" : "▼";
+            header.appendChild(label);
+            header.appendChild(chevron);
+            header.addEventListener("click", function () {
+              toggleCategoryCollapse(cat);
+              render();
+            });
+
+            var ul = document.createElement("ul");
+            ul.className = "cat-items";
+            ul.hidden = collapsed;
+            for (var j = 0; j < catItems.length; j++) {
+              ul.appendChild(createItem(catItems[j], listName, dayKey, editable));
+            }
+
+            group.appendChild(header);
+            group.appendChild(ul);
+            listElement.appendChild(group);
+          })(CATEGORY_ORDER[gi]);
         }
       }
 
       function updateCarryButton() {
-        if (viewMode !== "today") {
+        if (viewMode !== "today" || !store.activeDayKey) {
           carryButton.hidden = true;
           return;
         }
-        var yKey = yesterdayKey();
-        var yDay = store.days[yKey];
-        var hasIncomplete = yDay && Array.isArray(yDay.todo) && yDay.todo.length > 0;
-        carryButton.hidden = !hasIncomplete;
+        var source = findCarrySourceKey();
+        carryButton.hidden = !source;
       }
 
       function renderDateList() {
@@ -658,15 +1249,19 @@
           return;
         }
 
-        var tKey = todayKey();
+        var calKey = calendarTodayKey();
+        var workKey = store.activeDayKey;
         for (var i = 0; i < keys.length; i++) {
           (function (key) {
-            var day = ensureDay(key);
+            var day = store.days[key] || emptyDay();
+            if (!Array.isArray(day.todo)) day.todo = [];
+            if (!Array.isArray(day.done)) day.done = [];
             var btn = document.createElement("button");
             btn.type = "button";
             btn.className = "date-list-item";
             var label = formatJaDate(key);
-            if (key === tKey) label += "（今日）";
+            if (key === calKey) label += "（今日）";
+            if (key === workKey) label += "（表示中）";
             btn.appendChild(document.createTextNode(label));
             var meta = document.createElement("span");
             meta.className = "date-list-meta";
@@ -674,7 +1269,7 @@
               "やること " + day.todo.length + "件 / 完了 " + day.done.length + "件";
             btn.appendChild(meta);
             btn.addEventListener("click", function () {
-              if (key === tKey) {
+              if (key === workKey) {
                 viewMode = "today";
                 viewingDateKey = null;
               } else {
@@ -690,12 +1285,13 @@
 
       function render() {
         var editable = isEditable();
-        var dayKey = getActiveDayKey();
-        var day = ensureDay(dayKey);
+        var dayKey = getDisplayDayKey();
         var titleEl = document.getElementById("app-title");
         var dateEl = document.getElementById("today");
         var todoTitle = document.getElementById("todo-title");
         var doneTitle = document.getElementById("done-title");
+        var addTitle = document.getElementById("add-title");
+        var calKey = calendarTodayKey();
 
         if (viewMode === "list") {
           todayControls.hidden = true;
@@ -704,6 +1300,7 @@
           dateListSection.hidden = false;
           todoSection.hidden = true;
           doneSection.hidden = true;
+          newDayBanner.hidden = true;
           titleEl.textContent = "過去のログ";
           dateEl.textContent = "日付を選んでください";
           renderDateList();
@@ -716,12 +1313,27 @@
         doneSection.hidden = false;
 
         if (viewMode === "today") {
-          todayControls.hidden = false;
+          todayControls.hidden = !store.activeDayKey;
           secondaryNav.hidden = false;
           pastControls.hidden = true;
           titleEl.textContent = "今日のプラン＆ログ";
-          dateEl.textContent = formatJaDate(todayKey());
-          todoTitle.innerHTML = '今日やること <span id="todo-count"></span>';
+          if (dayKey) {
+            dateEl.textContent = formatJaDate(dayKey);
+          } else {
+            dateEl.textContent = "まだ Plan & Log がありません";
+          }
+          if (dayKey && dayKey === calKey) {
+            todoTitle.innerHTML = '今日やること <span id="todo-count"></span>';
+            if (addTitle) addTitle.textContent = "今日やることを追加";
+          } else if (dayKey) {
+            todoTitle.innerHTML =
+              formatJaMonthDay(dayKey) +
+              'のやること <span id="todo-count"></span>';
+            if (addTitle) addTitle.textContent = "やることを追加";
+          } else {
+            todoTitle.innerHTML = 'やること <span id="todo-count"></span>';
+            if (addTitle) addTitle.textContent = "やることを追加";
+          }
           doneTitle.innerHTML = '完了したこと <span id="done-count"></span>';
         } else {
           todayControls.hidden = true;
@@ -735,13 +1347,22 @@
             '完了したこと <span class="readonly-badge">読み取り専用</span> <span id="done-count"></span>';
         }
 
+        var day;
+        if (dayKey && store.days[dayKey]) {
+          day = ensureDay(dayKey);
+        } else if (editable && dayKey) {
+          day = ensureDay(dayKey);
+        } else {
+          day = { todo: [], done: [] };
+        }
+
         renderList(
           todoList,
           day.todo,
           "todo",
           dayKey,
           editable,
-          editable ? "登録するとここに表示されます。" : "この日の未完了はありません。"
+          editable ? "登録するとここに表示されます。" : (dayKey ? "この日の未完了はありません。" : "先に今日の Plan & Log を開始してください。")
         );
         renderList(
           doneList,
@@ -749,7 +1370,7 @@
           "done",
           dayKey,
           editable,
-          editable ? "完了した項目はここに記録されます。" : "この日の完了はありません。"
+          editable ? "完了した項目はここに記録されます。" : (dayKey ? "この日の完了はありません。" : "まだ完了はありません。")
         );
 
         var todoCountEl = document.getElementById("todo-count");
@@ -757,6 +1378,7 @@
         if (todoCountEl) todoCountEl.textContent = "（" + day.todo.length + "件）";
         if (doneCountEl) doneCountEl.textContent = "（" + day.done.length + "件）";
 
+        updateNewDayBanner();
         updateCarryButton();
       }
 
@@ -767,8 +1389,17 @@
           input.focus();
           return false;
         }
-        var day = ensureDay(todayKey());
-        day.todo.push({ id: createId(), text: textValue });
+        var wKey = store.activeDayKey;
+        if (!wKey) {
+          input.focus();
+          return false;
+        }
+        var day = ensureDay(wKey);
+        day.todo.push({
+          id: createId(),
+          text: textValue,
+          category: getSelectedCategory()
+        });
         save();
         render();
         input.value = "";
@@ -776,10 +1407,14 @@
         return false;
       }
 
-      function carryFromYesterday() {
-        var yKey = yesterdayKey();
-        var tKey = todayKey();
-        var yDay = ensureDay(yKey);
+      function carryFromSource() {
+        var sourceKey = findCarrySourceKey();
+        var tKey = store.activeDayKey;
+        if (!sourceKey || !tKey) {
+          alert("引き継げる未完了はありません。");
+          return;
+        }
+        var yDay = ensureDay(sourceKey);
         var tDay = ensureDay(tKey);
 
         var existingSourceIds = {};
@@ -799,6 +1434,7 @@
           tDay.todo.push({
             id: createId(),
             text: src.text,
+            category: normalizeCategory(src.category),
             sourceId: src.id
           });
           existingSourceIds[src.id] = true;
@@ -826,9 +1462,44 @@
           "」が出ていれば新しいファイルです。";
 
         store = loadStore();
-        ensureDay(todayKey());
+        // Do NOT call ensureDay(calendarTodayKey()) on boot — that created empty next days.
 
         window.addPlanItem = addItem;
+
+        if (!store.categoryLabels) {
+          store.categoryLabels = Object.assign({}, DEFAULT_CATEGORY_LABELS);
+        }
+        syncCategoryPicker();
+        if (categoryPicker) {
+          categoryPicker.addEventListener("click", function (event) {
+            var target = event.target;
+            if (!target || !target.closest) return;
+            var btn = target.closest(".cat-toggle");
+            if (!btn || !categoryPicker.contains(btn)) return;
+            if (event.preventDefault) event.preventDefault();
+            setSelectedCategory(btn.getAttribute("data-cat"));
+          });
+        }
+
+        if (catSettingsToggle) {
+          catSettingsToggle.addEventListener("click", function () {
+            if (catSettingsPanel && !catSettingsPanel.hidden) {
+              closeCategorySettings();
+            } else {
+              openCategorySettings();
+            }
+          });
+        }
+        if (catSettingsSave) {
+          catSettingsSave.addEventListener("click", function () {
+            saveCategoryLabels();
+          });
+        }
+        if (catSettingsCancel) {
+          catSettingsCancel.addEventListener("click", function () {
+            closeCategorySettings();
+          });
+        }
 
         addButton.addEventListener("click", function (event) {
           if (event && event.preventDefault) event.preventDefault();
@@ -849,8 +1520,12 @@
         input.addEventListener("keydown", onEnter);
         input.addEventListener("keypress", onEnter);
 
+        startDayButton.addEventListener("click", function () {
+          startCalendarToday();
+        });
+
         carryButton.addEventListener("click", function () {
-          carryFromYesterday();
+          carryFromSource();
         });
 
         pastLogsButton.addEventListener("click", function () {
@@ -870,7 +1545,7 @@
           var url = URL.createObjectURL(blob);
           var link = document.createElement("a");
           link.href = url;
-          link.download = "plan-log-backup-" + todayKey() + ".json";
+          link.download = "plan-log-backup-" + calendarTodayKey() + ".json";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -897,10 +1572,10 @@
                   return;
                 }
               } else if (isOldFormat(parsed)) {
-                imported = migrateOldToNew(parsed, todayKey());
+                imported = migrateOldToNew(parsed, calendarTodayKey());
                 if (!confirm(
                   "以前の形式のJSONです。今日（" +
-                    todayKey() +
+                    calendarTodayKey() +
                     "）のログとして取り込み、今の全データを置き換えますか？"
                 )) {
                   return;
@@ -911,10 +1586,15 @@
               }
 
               store = imported;
-              ensureDay(todayKey());
+              if (!store.categoryLabels) {
+                store.categoryLabels = Object.assign({}, DEFAULT_CATEGORY_LABELS);
+              }
+              carrySourceKey = null;
+              // Do not ensureDay(calendarToday) — preserve imported activeDayKey as-is.
               save();
               viewMode = "today";
               viewingDateKey = null;
+              syncCategoryPicker();
               render();
               alert("データを読み込みました。");
             } catch (error) {
