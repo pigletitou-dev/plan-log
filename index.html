@@ -154,6 +154,7 @@
       padding: 6px 10px;
       min-height: 44px;
       border-bottom: 1px solid #e8eef1;
+      border-left: 3px solid var(--cat-color, #9aa7ae);
     }
     .item:last-child { border-bottom: 0; }
     .item input[type="checkbox"] { width: 22px; height: 22px; flex: 0 0 auto; accent-color: var(--green); }
@@ -296,33 +297,46 @@
       flex-wrap: wrap;
       gap: 6px;
       margin: 0 0 10px;
+      align-items: center;
     }
     .cat-toggle {
       min-height: 36px;
       padding: 6px 12px;
-      border: 2px solid var(--line);
+      border: 2px solid var(--cat-border, var(--line));
       border-radius: 999px;
       background: var(--white);
-      color: var(--muted);
+      color: var(--cat-color, var(--muted));
       font-size: .88rem;
       font-weight: 700;
     }
-    .cat-toggle[data-cat="housework"] { border-color: #b8d4c8; color: #39735d; }
-    .cat-toggle[data-cat="work"] { border-color: #b5d0df; color: #2f6f95; }
-    .cat-toggle[data-cat="other1"] { border-color: #d4c0d8; color: #6b4f7a; }
-    .cat-toggle[data-cat="other2"] { border-color: #c8d0d4; color: #6b7a83; }
-    .cat-toggle[aria-pressed="true"] { color: #fff; }
-    .cat-toggle[data-cat="housework"][aria-pressed="true"] {
-      background: #39735d; border-color: #39735d;
+    .cat-toggle[aria-pressed="true"] {
+      background: var(--cat-color, var(--muted));
+      border-color: var(--cat-color, var(--muted));
+      color: #fff;
     }
-    .cat-toggle[data-cat="work"][aria-pressed="true"] {
-      background: #2f6f95; border-color: #2f6f95;
+    .cat-more-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 36px;
     }
-    .cat-toggle[data-cat="other1"][aria-pressed="true"] {
-      background: #6b4f7a; border-color: #6b4f7a;
+    .cat-more-label {
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 600;
+      white-space: nowrap;
     }
-    .cat-toggle[data-cat="other2"][aria-pressed="true"] {
-      background: #6b7a83; border-color: #6b7a83;
+    .cat-more-select {
+      min-height: 36px;
+      max-width: 11em;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: var(--white);
+      color: var(--text);
+      font: inherit;
+      font-size: .85rem;
+      font-weight: 600;
     }
 
     .cat-group { border-bottom: 1px solid #e8eef1; }
@@ -346,9 +360,7 @@
     .cat-header-label { flex: 1; min-width: 0; }
     .cat-chevron { color: var(--muted); font-size: .78rem; flex: 0 0 auto; }
     .cat-items { list-style: none; padding: 0; margin: 0; }
-    .item.cat-housework { border-left: 3px solid #39735d; }
     .item.cat-work { border-left: 3px solid #2f6f95; }
-    .item.cat-other1 { border-left: 3px solid #6b4f7a; }
     .item.cat-other2 { border-left: 3px solid #9aa7ae; }
 
     .cat-settings-toggle {
@@ -372,27 +384,42 @@
       margin: 0 0 12px;
     }
     .cat-settings-panel[hidden] { display: none !important; }
-    .cat-settings-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .cat-settings-hint {
+      color: var(--muted);
+      font-size: .78rem;
+      margin: 0 0 8px;
+      line-height: 1.45;
+    }
+    .cat-settings-list { margin: 0 0 10px; }
+    .cat-settings-item {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px;
       margin: 0 0 8px;
     }
-    .cat-settings-row:last-of-type { margin-bottom: 10px; }
-    .cat-settings-emoji {
+    .cat-settings-item.archived {
+      opacity: 0.72;
+      background: #f0f2f3;
+    }
+    .cat-settings-main {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin: 0 0 6px;
+    }
+    .cat-settings-emoji-input {
       flex: 0 0 auto;
-      width: 1.6em;
+      width: 3.2em;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 4px;
+      min-height: 36px;
       text-align: center;
       font-size: 1.05rem;
+      background: var(--white);
     }
-    .cat-settings-row label {
-      flex: 0 0 auto;
-      min-width: 4.5em;
-      color: var(--muted);
-      font-size: .85rem;
-      font-weight: 600;
-    }
-    .cat-settings-row input[type="text"] {
+    .cat-settings-label-input {
       flex: 1;
       min-width: 0;
       border: 1px solid var(--line);
@@ -404,8 +431,45 @@
       font: inherit;
       font-size: .95rem;
     }
-    .cat-settings-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .cat-settings-save {
+    .cat-settings-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+    .cat-settings-tools button {
+      min-height: 32px;
+      padding: 2px 8px;
+      background: #eef1f2;
+      color: var(--text);
+      font-size: .8rem;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+    .cat-settings-tools button.danger {
+      color: #8a3a3a;
+      background: #f7ecec;
+    }
+    .cat-settings-section-title {
+      margin: 12px 0 6px;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .cat-settings-add {
+      background: var(--white);
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 8px;
+      margin: 0 0 10px;
+    }
+    .cat-settings-add-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin: 0 0 6px;
+    }
+    .cat-settings-add-btn {
       min-height: 34px;
       padding: 4px 12px;
       background: var(--navy);
@@ -413,7 +477,22 @@
       font-weight: 700;
       border-radius: 8px;
     }
-    .cat-settings-cancel {
+    .cat-emoji-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 0 0 6px;
+    }
+    .cat-emoji-palette button {
+      min-height: 32px;
+      min-width: 32px;
+      padding: 2px;
+      background: #eef1f2;
+      font-size: 1.05rem;
+      border-radius: 6px;
+    }
+    .cat-settings-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cat-settings-close {
       min-height: 34px;
       padding: 4px 12px;
       background: #eef1f2;
@@ -421,11 +500,28 @@
       font-weight: 600;
       border-radius: 8px;
     }
-    .cat-settings-hint {
-      color: var(--muted);
-      font-size: .78rem;
+    .cat-archive-dialog {
+      background: #fff8e8;
+      border: 1px solid #f0d9a0;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 8px 0 0;
+    }
+    .cat-archive-dialog p {
       margin: 0 0 8px;
+      font-size: .85rem;
+      color: #6a5318;
       line-height: 1.45;
+    }
+    .cat-archive-dialog select {
+      display: block;
+      width: 100%;
+      min-height: 36px;
+      margin: 0 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 8px;
+      font: inherit;
     }
 
     @media (max-width: 520px) {
@@ -439,10 +535,10 @@
     <header>
       <h1 id="app-title">今日のプラン＆ログ</h1>
       <p class="date" id="today"></p>
-      <p class="version" id="version-label">修正版 2026-09-23d</p>
+      <p class="version" id="version-label">修正版 2026-09-23e</p>
     </header>
 
-    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-23d」が出ていれば新しいファイルです。</p>
+    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-23e」が出ていれば新しいファイルです。</p>
     <p id="boot-status" class="status-ok" hidden>動作準備OK</p>
 
     <div id="new-day-banner" class="new-day-banner" hidden>
@@ -453,12 +549,7 @@
     <div id="today-controls">
       <section class="composer" aria-labelledby="add-title">
         <h2 id="add-title">今日やることを追加</h2>
-        <div class="category-picker" id="category-picker" role="group" aria-label="カテゴリ">
-          <button type="button" class="cat-toggle" data-cat="housework" aria-pressed="false">［🏠 家事］</button>
-          <button type="button" class="cat-toggle" data-cat="work" aria-pressed="false">［💼 仕事］</button>
-          <button type="button" class="cat-toggle" data-cat="other1" aria-pressed="false">［📝 その他1］</button>
-          <button type="button" class="cat-toggle" data-cat="other2" aria-pressed="true">［📋 その他2］</button>
-        </div>
+        <div class="category-picker" id="category-picker" role="group" aria-label="カテゴリ"></div>
         <div class="add-form" id="add-form">
           <label for="new-item" class="visually-hidden">今日やることを入力</label>
           <input id="new-item" type="text" placeholder="今日やることを入力" autocomplete="off" enterkeyhint="done">
@@ -498,32 +589,20 @@
     <section class="transfer-section" aria-labelledby="transfer-title">
       <div class="section-heading"><h2 id="transfer-title">データ管理</h2></div>
       <div class="transfer-content">
-        <button id="cat-settings-toggle" class="cat-settings-toggle" type="button">分類名の設定</button>
+        <button id="cat-settings-toggle" class="cat-settings-toggle" type="button">分類の設定</button>
         <div id="cat-settings-panel" class="cat-settings-panel" hidden>
-          <p class="cat-settings-hint">表示名だけ変更できます。保存済みの項目の分類IDは変わりません。</p>
-          <div class="cat-settings-row">
-            <span class="cat-settings-emoji" aria-hidden="true">🏠</span>
-            <label for="cat-label-housework">家事</label>
-            <input id="cat-label-housework" type="text" data-cat-id="housework" autocomplete="off">
-          </div>
-          <div class="cat-settings-row">
-            <span class="cat-settings-emoji" aria-hidden="true">💼</span>
-            <label for="cat-label-work">仕事</label>
-            <input id="cat-label-work" type="text" data-cat-id="work" autocomplete="off">
-          </div>
-          <div class="cat-settings-row">
-            <span class="cat-settings-emoji" aria-hidden="true">📝</span>
-            <label for="cat-label-other1">その他1</label>
-            <input id="cat-label-other1" type="text" data-cat-id="other1" autocomplete="off">
-          </div>
-          <div class="cat-settings-row">
-            <span class="cat-settings-emoji" aria-hidden="true">📋</span>
-            <label for="cat-label-other2">その他2</label>
-            <input id="cat-label-other2" type="text" data-cat-id="other2" autocomplete="off">
+          <p class="cat-settings-hint">分類の追加・名前変更・並び替え・非表示ができます。IDは変わりません。項目は消えません。</p>
+          <div id="cat-settings-list" class="cat-settings-list"></div>
+          <div class="cat-settings-add">
+            <div class="cat-settings-add-row">
+              <input id="cat-add-emoji" class="cat-settings-emoji-input" type="text" maxlength="4" value="📌" aria-label="絵文字" autocomplete="off">
+              <input id="cat-add-label" class="cat-settings-label-input" type="text" placeholder="新しい分類名" autocomplete="off">
+            </div>
+            <div class="cat-emoji-palette" id="cat-emoji-palette" aria-label="絵文字候補"></div>
+            <button id="cat-add-button" class="cat-settings-add-btn" type="button">分類を追加</button>
           </div>
           <div class="cat-settings-actions">
-            <button id="cat-settings-save" class="cat-settings-save" type="button">保存</button>
-            <button id="cat-settings-cancel" class="cat-settings-cancel" type="button">閉じる</button>
+            <button id="cat-settings-cancel" class="cat-settings-close" type="button">閉じる</button>
           </div>
         </div>
         <div class="backup-block">
@@ -542,26 +621,45 @@
   <script>
     (function () {
       const STORAGE_KEY = "today-plan-log-items";
-      const VERSION = "修正版 2026-09-23d";
+      const VERSION = "修正版 2026-09-23e";
       const LAST_CATEGORY_KEY = "plan-log-last-category";
+      const RECENT_CATEGORIES_KEY = "plan-log-recent-categories";
       const COLLAPSE_KEY = "plan-log-category-collapse";
-      const VALID_CATEGORIES = { housework: true, work: true, other1: true, other2: true };
-      const CATEGORY_ORDER = ["work", "other1", "housework", "other2"];
-      const CATEGORY_EMOJI = {
-        housework: "🏠",
-        work: "💼",
-        other1: "📝",
-        other2: "📋"
+      const STORE_VERSION = 4;
+      const QUICK_PICK_MAX = 4;
+      const EMOJI_PALETTE = ["🏠", "💼", "📝", "📋", "🗂️", "📌", "✅", "⭐", "💡", "🛒", "🧹", "📞", "💻", "📚", "🎯", "🔧"];
+      const FIXED_CAT_COLORS = {
+        housework: "#39735d",
+        work: "#2f6f95",
+        other1: "#6b4f7a",
+        other2: "#9aa7ae",
+        other3: "#c4784a"
       };
-      const DEFAULT_CATEGORY_LABELS = {
-        housework: "家事",
-        work: "仕事",
-        other1: "その他1",
-        other2: "その他2"
-      };
+      const ROTATING_COLORS = ["#5b8a72", "#4a7a9b", "#8a6b9b", "#9b7a4a", "#6b8a9b", "#9b6b6b", "#5a7d6a", "#7a6b5a"];
+      const DEFAULT_CATEGORIES = [
+        { id: "housework", label: "家事", emoji: "🏠", order: 0, archived: false },
+        { id: "work", label: "仕事", emoji: "💼", order: 1, archived: false },
+        { id: "other1", label: "その他1", emoji: "📝", order: 2, archived: false },
+        { id: "other2", label: "その他2", emoji: "📋", order: 3, archived: false },
+        { id: "other3", label: "その他3", emoji: "🗂️", order: 4, archived: false }
+      ];
 
-      /** @type {{ version: number, activeDayKey: string|null, days: Object.<string, {todo: Array, done: Array}>, categoryLabels: Object.<string, string> }} */
-      let store = { version: 3, activeDayKey: null, days: {}, categoryLabels: Object.assign({}, DEFAULT_CATEGORY_LABELS) };
+      function cloneDefaultCategories() {
+        return DEFAULT_CATEGORIES.map(function (c) {
+          return { id: c.id, label: c.label, emoji: c.emoji, order: c.order, archived: !!c.archived };
+        });
+      }
+
+      function categoriesToLabels(cats) {
+        var out = {};
+        (Array.isArray(cats) ? cats : []).forEach(function (c) {
+          if (c && c.id) out[c.id] = c.label || c.id;
+        });
+        return out;
+      }
+
+      /** @type {{ version: number, activeDayKey: string|null, days: Object.<string, {todo: Array, done: Array}>, categories: Array, categoryLabels: Object.<string, string> }} */
+      let store = emptyStore();
 
       /** "today" | "list" | "day" — "today" means the working-day main view */
       let viewMode = "today";
@@ -569,6 +667,7 @@
       let viewingDateKey = null;
       /** Previous activeDayKey remembered when starting a new calendar day (session) */
       let carrySourceKey = null;
+      let archivePromptCatId = null;
 
       const bootStatus = document.getElementById("boot-status");
       const input = document.getElementById("new-item");
@@ -594,125 +693,609 @@
       const categoryPicker = document.getElementById("category-picker");
       const catSettingsToggle = document.getElementById("cat-settings-toggle");
       const catSettingsPanel = document.getElementById("cat-settings-panel");
-      const catSettingsSave = document.getElementById("cat-settings-save");
+      const catSettingsList = document.getElementById("cat-settings-list");
       const catSettingsCancel = document.getElementById("cat-settings-cancel");
+      const catAddButton = document.getElementById("cat-add-button");
+      const catAddLabel = document.getElementById("cat-add-label");
+      const catAddEmoji = document.getElementById("cat-add-emoji");
+      const catEmojiPalette = document.getElementById("cat-emoji-palette");
 
       function emptyStore() {
+        var cats = cloneDefaultCategories();
         return {
-          version: 3,
+          version: STORE_VERSION,
           activeDayKey: null,
           days: {},
-          categoryLabels: Object.assign({}, DEFAULT_CATEGORY_LABELS)
+          categories: cats,
+          categoryLabels: categoriesToLabels(cats)
         };
       }
 
-      function normalizeCategory(cat) {
+      function mapLegacyCategoryId(cat) {
         if (cat === "property") return "other1";
         if (cat === "other") return "other2";
-        if (typeof cat === "string" && VALID_CATEGORIES[cat]) return cat;
+        return cat;
+      }
+
+      function findCategory(id) {
+        if (!id) return null;
+        var cats = store.categories || [];
+        for (var i = 0; i < cats.length; i++) {
+          if (cats[i] && cats[i].id === id) return cats[i];
+        }
+        return null;
+      }
+
+      function getSortedCategories(includeArchived) {
+        var cats = Array.isArray(store.categories) ? store.categories.slice() : [];
+        cats.sort(function (a, b) {
+          var ao = typeof a.order === "number" ? a.order : 0;
+          var bo = typeof b.order === "number" ? b.order : 0;
+          if (ao !== bo) return ao - bo;
+          return String(a.id).localeCompare(String(b.id));
+        });
+        if (!includeArchived) cats = cats.filter(function (c) { return c && !c.archived; });
+        return cats;
+      }
+
+      function getVisibleCategories() {
+        return getSortedCategories(false);
+      }
+
+      function getDefaultFallbackCategoryId() {
+        var visible = getVisibleCategories();
+        if (visible.length > 0) return visible[0].id;
         return "other2";
       }
 
-      function normalizeCategoryLabels(raw) {
-        var out = Object.assign({}, DEFAULT_CATEGORY_LABELS);
-        if (!raw || typeof raw !== "object") return out;
-        var ids = Object.keys(DEFAULT_CATEGORY_LABELS);
-        for (var i = 0; i < ids.length; i++) {
-          var id = ids[i];
-          var v = raw[id];
-          if (typeof v === "string" && v.trim()) out[id] = v.trim();
+      function getCategoryOrderIndex(id) {
+        var cats = getSortedCategories(true);
+        for (var i = 0; i < cats.length; i++) {
+          if (cats[i].id === id) return i;
         }
-        // Merge legacy custom labels if present under old keys
-        if (typeof raw.property === "string" && raw.property.trim() && out.other1 === DEFAULT_CATEGORY_LABELS.other1) {
+        return 0;
+      }
+
+      function getCategoryColor(catId) {
+        if (FIXED_CAT_COLORS[catId]) return FIXED_CAT_COLORS[catId];
+        var idx = getCategoryOrderIndex(catId);
+        return ROTATING_COLORS[Math.abs(idx) % ROTATING_COLORS.length];
+      }
+
+      function ensureUnknownCategory(id) {
+        if (!id || findCategory(id)) return;
+        var maxOrder = -1;
+        (store.categories || []).forEach(function (c) {
+          var o = c && typeof c.order === "number" ? c.order : 0;
+          if (o > maxOrder) maxOrder = o;
+        });
+        store.categories.push({
+          id: id,
+          label: "不明 (" + id + ")",
+          emoji: "📌",
+          order: maxOrder + 1,
+          archived: false
+        });
+        store.categoryLabels = categoriesToLabels(store.categories);
+      }
+
+      function normalizeCategory(cat) {
+        if (cat == null || cat === "") return getDefaultFallbackCategoryId();
+        if (typeof cat !== "string") return getDefaultFallbackCategoryId();
+        var id = mapLegacyCategoryId(cat.trim());
+        if (!id) return getDefaultFallbackCategoryId();
+        if (!findCategory(id)) ensureUnknownCategory(id);
+        return id;
+      }
+
+      function getCategoryLabel(cat) {
+        var id = normalizeCategory(cat);
+        var entry = findCategory(id);
+        if (entry && typeof entry.label === "string" && entry.label.trim()) return entry.label.trim();
+        if (store.categoryLabels && typeof store.categoryLabels[id] === "string" && store.categoryLabels[id].trim()) {
+          return store.categoryLabels[id].trim();
+        }
+        return id;
+      }
+
+      function getCategoryEmoji(cat) {
+        var id = normalizeCategory(cat);
+        var entry = findCategory(id);
+        if (entry && typeof entry.emoji === "string" && entry.emoji.trim()) return entry.emoji.trim();
+        return "📌";
+      }
+
+      function getCategoryDisplay(cat) {
+        return getCategoryEmoji(cat) + " " + getCategoryLabel(cat);
+      }
+
+      function normalizeCategoryLabels(raw) {
+        var out = {};
+        DEFAULT_CATEGORIES.forEach(function (c) { out[c.id] = c.label; });
+        if (!raw || typeof raw !== "object") return out;
+        Object.keys(out).forEach(function (id) {
+          if (typeof raw[id] === "string" && raw[id].trim()) out[id] = raw[id].trim();
+        });
+        if (typeof raw.property === "string" && raw.property.trim() && out.other1 === "その他1") {
           out.other1 = raw.property.trim();
         }
-        if (typeof raw.other === "string" && raw.other.trim() && out.other2 === DEFAULT_CATEGORY_LABELS.other2) {
+        if (typeof raw.other === "string" && raw.other.trim() && out.other2 === "その他2") {
           out.other2 = raw.other.trim();
         }
         return out;
       }
 
-      function getCategoryLabel(cat) {
-        cat = normalizeCategory(cat);
-        var labels = store.categoryLabels || DEFAULT_CATEGORY_LABELS;
-        var label = labels[cat];
-        if (typeof label === "string" && label.trim()) return label.trim();
-        return DEFAULT_CATEGORY_LABELS[cat] || cat;
+      function normalizeCategoriesArray(rawCats, labelMap) {
+        var byId = {};
+        var i;
+        for (i = 0; i < DEFAULT_CATEGORIES.length; i++) {
+          var d = DEFAULT_CATEGORIES[i];
+          byId[d.id] = { id: d.id, label: d.label, emoji: d.emoji, order: d.order, archived: false };
+        }
+        if (labelMap && typeof labelMap === "object") {
+          Object.keys(labelMap).forEach(function (lid) {
+            if (byId[lid] && typeof labelMap[lid] === "string" && labelMap[lid].trim()) {
+              byId[lid].label = labelMap[lid].trim();
+            }
+          });
+        }
+        if (Array.isArray(rawCats)) {
+          for (i = 0; i < rawCats.length; i++) {
+            var c = rawCats[i];
+            if (!c || typeof c !== "object" || typeof c.id !== "string" || !c.id.trim()) continue;
+            var id = mapLegacyCategoryId(c.id.trim());
+            var label = typeof c.label === "string" && c.label.trim() ? c.label.trim() : (byId[id] ? byId[id].label : id);
+            var emoji = typeof c.emoji === "string" && c.emoji.trim() ? c.emoji.trim() : (byId[id] ? byId[id].emoji : "📌");
+            var order = typeof c.order === "number" && isFinite(c.order) ? c.order : (byId[id] ? byId[id].order : 1000 + i);
+            byId[id] = { id: id, label: label, emoji: emoji, order: order, archived: !!c.archived };
+          }
+        }
+        if (!byId.other3) {
+          byId.other3 = { id: "other3", label: "その他3", emoji: "🗂️", order: 4, archived: false };
+        }
+        var list = Object.keys(byId).map(function (k) { return byId[k]; });
+        list.sort(function (a, b) {
+          if (a.order !== b.order) return a.order - b.order;
+          return String(a.id).localeCompare(String(b.id));
+        });
+        for (i = 0; i < list.length; i++) list[i].order = i;
+        return list;
+      }
+
+      function ensureCategoriesCoverItems(categories, days) {
+        var used = {};
+        Object.keys(days || {}).forEach(function (dk) {
+          var day = days[dk] || {};
+          [day.todo, day.done].forEach(function (arr) {
+            (Array.isArray(arr) ? arr : []).forEach(function (item) {
+              if (item && typeof item.category === "string" && item.category.trim()) {
+                used[mapLegacyCategoryId(item.category.trim())] = true;
+              }
+            });
+          });
+        });
+        var byId = {};
+        categories.forEach(function (c) { byId[c.id] = c; });
+        var maxOrder = categories.length - 1;
+        Object.keys(used).forEach(function (id) {
+          if (byId[id]) return;
+          maxOrder += 1;
+          categories.push({ id: id, label: "不明 (" + id + ")", emoji: "📌", order: maxOrder, archived: false });
+        });
+        return categories;
       }
 
       function getSelectedCategory() {
         try {
           var raw = localStorage.getItem(LAST_CATEGORY_KEY);
-          return normalizeCategory(raw);
-        } catch (e) {
-          return "other2";
-        }
+          if (raw) {
+            var id = normalizeCategory(raw);
+            var entry = findCategory(id);
+            if (entry && !entry.archived) return id;
+          }
+        } catch (e) {}
+        return getDefaultFallbackCategoryId();
+      }
+
+      function loadRecentCategories() {
+        try {
+          var raw = localStorage.getItem(RECENT_CATEGORIES_KEY);
+          if (!raw) return [];
+          var parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed)) return [];
+          return parsed.filter(function (x) { return typeof x === "string" && x; });
+        } catch (e) { return []; }
+      }
+
+      function saveRecentCategories(ids) {
+        try { localStorage.setItem(RECENT_CATEGORIES_KEY, JSON.stringify(ids.slice(0, 8))); } catch (e) {}
+      }
+
+      function rememberRecentCategory(catId) {
+        if (!catId) return;
+        var recent = loadRecentCategories().filter(function (id) { return id !== catId; });
+        recent.unshift(catId);
+        saveRecentCategories(recent);
       }
 
       function setSelectedCategory(cat) {
-        cat = normalizeCategory(cat);
-        try {
-          localStorage.setItem(LAST_CATEGORY_KEY, cat);
-        } catch (e) {
-          // ignore
-        }
+        var id = normalizeCategory(cat);
+        var entry = findCategory(id);
+        if (entry && entry.archived) id = getDefaultFallbackCategoryId();
+        try { localStorage.setItem(LAST_CATEGORY_KEY, id); } catch (e) {}
+        rememberRecentCategory(id);
         syncCategoryPicker();
+      }
+
+      function getQuickPickIds(selectedId) {
+        var visible = getVisibleCategories();
+        var visibleIds = visible.map(function (c) { return c.id; });
+        var picks = [];
+        function add(id) {
+          if (!id || picks.indexOf(id) !== -1) return;
+          if (visibleIds.indexOf(id) === -1) return;
+          picks.push(id);
+        }
+        add(selectedId);
+        var recent = loadRecentCategories();
+        for (var i = 0; i < recent.length && picks.length < QUICK_PICK_MAX; i++) add(recent[i]);
+        for (var j = 0; j < visibleIds.length && picks.length < QUICK_PICK_MAX; j++) add(visibleIds[j]);
+        return picks;
+      }
+
+      function applyCatToggleStyle(btn, catId, pressed) {
+        var color = getCategoryColor(catId);
+        btn.style.setProperty("--cat-color", color);
+        btn.style.setProperty("--cat-border", color);
+        btn.setAttribute("aria-pressed", pressed ? "true" : "false");
+      }
+
+      function buildCategoryPickerInto(container, selectedId, onSelect, options) {
+        while (container.firstChild) container.removeChild(container.firstChild);
+        options = options || {};
+        var includeArchivedCurrent = !!options.includeCurrentEvenIfArchived;
+        var selected = selectedId;
+        var entry = findCategory(selected);
+        if (!entry || (entry.archived && !includeArchivedCurrent)) {
+          selected = getDefaultFallbackCategoryId();
+        }
+        var quickIds = getQuickPickIds(selected);
+        if (includeArchivedCurrent && selected && quickIds.indexOf(selected) === -1) {
+          quickIds = [selected].concat(quickIds).slice(0, QUICK_PICK_MAX);
+        }
+        var i;
+        for (i = 0; i < quickIds.length; i++) {
+          (function (catId) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "cat-toggle";
+            btn.setAttribute("data-cat", catId);
+            btn.textContent = "［" + getCategoryDisplay(catId) + "］";
+            applyCatToggleStyle(btn, catId, catId === selected);
+            btn.addEventListener("click", function () { onSelect(catId); });
+            container.appendChild(btn);
+          })(quickIds[i]);
+        }
+        var visible = getVisibleCategories();
+        var moreWrap = document.createElement("div");
+        moreWrap.className = "cat-more-wrap";
+        var moreLabel = document.createElement("span");
+        moreLabel.className = "cat-more-label";
+        moreLabel.textContent = "ほかの分類";
+        var select = document.createElement("select");
+        select.className = "cat-more-select";
+        select.setAttribute("aria-label", "ほかの分類");
+        var placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = "選ぶ…";
+        select.appendChild(placeholder);
+        var selectedInQuick = quickIds.indexOf(selected) !== -1;
+        for (i = 0; i < visible.length; i++) {
+          var opt = document.createElement("option");
+          opt.value = visible[i].id;
+          opt.textContent = getCategoryDisplay(visible[i].id);
+          if (visible[i].id === selected && !selectedInQuick) opt.selected = true;
+          select.appendChild(opt);
+        }
+        if (includeArchivedCurrent && entry && entry.archived) {
+          var archOpt = document.createElement("option");
+          archOpt.value = entry.id;
+          archOpt.textContent = getCategoryDisplay(entry.id) + "（非表示）";
+          if (entry.id === selected) archOpt.selected = true;
+          select.appendChild(archOpt);
+        }
+        select.addEventListener("change", function () {
+          if (!select.value) return;
+          onSelect(select.value);
+        });
+        moreWrap.appendChild(moreLabel);
+        moreWrap.appendChild(select);
+        container.appendChild(moreWrap);
       }
 
       function syncCategoryPicker() {
         if (!categoryPicker) return;
-        var selected = getSelectedCategory();
-        var buttons = categoryPicker.querySelectorAll(".cat-toggle");
-        for (var i = 0; i < buttons.length; i++) {
-          var btn = buttons[i];
-          var id = btn.getAttribute("data-cat");
-          var emoji = CATEGORY_EMOJI[id] || "";
-          var label = getCategoryLabel(id);
-          btn.textContent = "［" + emoji + " " + label + "］";
-          var pressed = id === selected;
-          btn.setAttribute("aria-pressed", pressed ? "true" : "false");
-        }
-      }
-
-      function fillCategorySettingsForm() {
-        var ids = ["housework", "work", "other1", "other2"];
-        for (var i = 0; i < ids.length; i++) {
-          var id = ids[i];
-          var input = document.getElementById("cat-label-" + id);
-          if (input) input.value = getCategoryLabel(id);
-        }
+        buildCategoryPickerInto(categoryPicker, getSelectedCategory(), function (catId) {
+          setSelectedCategory(catId);
+        });
       }
 
       function openCategorySettings() {
         if (!catSettingsPanel) return;
-        fillCategorySettingsForm();
+        archivePromptCatId = null;
+        renderCategorySettings();
         catSettingsPanel.hidden = false;
       }
 
       function closeCategorySettings() {
         if (!catSettingsPanel) return;
+        archivePromptCatId = null;
         catSettingsPanel.hidden = true;
       }
 
-      function saveCategoryLabels() {
-        var ids = ["housework", "work", "other1", "other2"];
-        var next = Object.assign({}, DEFAULT_CATEGORY_LABELS);
-        for (var i = 0; i < ids.length; i++) {
-          var id = ids[i];
-          var input = document.getElementById("cat-label-" + id);
-          var val = input ? String(input.value || "").trim() : "";
-          if (!val) {
-            alert("分類名は空にできません。");
-            if (input) input.focus();
-            return;
+      function countItemsUsingCategory(catId) {
+        var count = 0;
+        Object.keys(store.days || {}).forEach(function (dk) {
+          var day = store.days[dk] || {};
+          [day.todo, day.done].forEach(function (arr) {
+            (Array.isArray(arr) ? arr : []).forEach(function (item) {
+              if (item && normalizeCategory(item.category) === catId) count++;
+            });
+          });
+        });
+        return count;
+      }
+
+      function moveItemsToCategory(fromId, toId) {
+        Object.keys(store.days || {}).forEach(function (dk) {
+          var day = store.days[dk] || {};
+          ["todo", "done"].forEach(function (listName) {
+            (Array.isArray(day[listName]) ? day[listName] : []).forEach(function (item) {
+              if (item && normalizeCategory(item.category) === fromId) item.category = toId;
+            });
+          });
+        });
+      }
+
+      function renderCategorySettings() {
+        if (!catSettingsList) return;
+        while (catSettingsList.firstChild) catSettingsList.removeChild(catSettingsList.firstChild);
+        var active = getSortedCategories(true).filter(function (c) { return !c.archived; });
+        var archived = getSortedCategories(true).filter(function (c) { return c.archived; });
+        function appendSection(title, list, isActiveSection) {
+          if (title) {
+            var h = document.createElement("p");
+            h.className = "cat-settings-section-title";
+            h.textContent = title;
+            catSettingsList.appendChild(h);
           }
-          next[id] = val;
+          for (var i = 0; i < list.length; i++) {
+            catSettingsList.appendChild(createSettingsRow(list[i], i, list.length, isActiveSection));
+          }
         }
-        store.categoryLabels = next;
+        appendSection(null, active, true);
+        if (archived.length) appendSection("非表示の分類", archived, false);
+      }
+
+      function createSettingsRow(cat, indexInSection, sectionLen, isActiveSection) {
+        var wrap = document.createElement("div");
+        wrap.className = "cat-settings-item" + (cat.archived ? " archived" : "");
+        wrap.setAttribute("data-cat-id", cat.id);
+        var main = document.createElement("div");
+        main.className = "cat-settings-main";
+        var emojiInput = document.createElement("input");
+        emojiInput.className = "cat-settings-emoji-input";
+        emojiInput.type = "text";
+        emojiInput.maxLength = 4;
+        emojiInput.value = cat.emoji || "📌";
+        emojiInput.setAttribute("aria-label", "絵文字");
+        emojiInput.autocomplete = "off";
+        var labelInput = document.createElement("input");
+        labelInput.className = "cat-settings-label-input";
+        labelInput.type = "text";
+        labelInput.value = cat.label || "";
+        labelInput.setAttribute("aria-label", "分類名");
+        labelInput.autocomplete = "off";
+        main.appendChild(emojiInput);
+        main.appendChild(labelInput);
+        wrap.appendChild(main);
+        var tools = document.createElement("div");
+        tools.className = "cat-settings-tools";
+        var saveBtn = document.createElement("button");
+        saveBtn.type = "button";
+        saveBtn.textContent = "名前を保存";
+        saveBtn.addEventListener("click", function () {
+          var newLabel = String(labelInput.value || "").trim();
+          var newEmoji = String(emojiInput.value || "").trim() || "📌";
+          if (!newLabel) { alert("分類名は空にできません。"); labelInput.focus(); return; }
+          cat.label = newLabel;
+          cat.emoji = newEmoji;
+          store.categoryLabels = categoriesToLabels(store.categories);
+          save();
+          syncCategoryPicker();
+          renderCategorySettings();
+          render();
+        });
+        tools.appendChild(saveBtn);
+        if (isActiveSection) {
+          var upBtn = document.createElement("button");
+          upBtn.type = "button";
+          upBtn.textContent = "↑";
+          upBtn.disabled = indexInSection === 0;
+          upBtn.addEventListener("click", function () { moveCategoryOrder(cat.id, -1); });
+          var downBtn = document.createElement("button");
+          downBtn.type = "button";
+          downBtn.textContent = "↓";
+          downBtn.disabled = indexInSection >= sectionLen - 1;
+          downBtn.addEventListener("click", function () { moveCategoryOrder(cat.id, 1); });
+          var archBtn = document.createElement("button");
+          archBtn.type = "button";
+          archBtn.className = "danger";
+          archBtn.textContent = "非表示にする";
+          archBtn.addEventListener("click", function () { beginArchiveCategory(cat.id); });
+          tools.appendChild(upBtn);
+          tools.appendChild(downBtn);
+          tools.appendChild(archBtn);
+        } else {
+          var restoreBtn = document.createElement("button");
+          restoreBtn.type = "button";
+          restoreBtn.textContent = "再表示";
+          restoreBtn.addEventListener("click", function () {
+            cat.archived = false;
+            save();
+            syncCategoryPicker();
+            renderCategorySettings();
+            render();
+          });
+          tools.appendChild(restoreBtn);
+        }
+        wrap.appendChild(tools);
+        if (archivePromptCatId === cat.id) wrap.appendChild(buildArchivePrompt(cat));
+        return wrap;
+      }
+
+      function buildArchivePrompt(cat) {
+        var used = countItemsUsingCategory(cat.id);
+        var box = document.createElement("div");
+        box.className = "cat-archive-dialog";
+        function addCancel(tools) {
+          var cancel = document.createElement("button");
+          cancel.type = "button";
+          cancel.textContent = "キャンセル";
+          cancel.addEventListener("click", function () { archivePromptCatId = null; renderCategorySettings(); });
+          tools.appendChild(cancel);
+        }
+        if (used === 0) {
+          var p0 = document.createElement("p");
+          p0.textContent = "この分類を非表示にしますか？（あとから再表示できます）";
+          box.appendChild(p0);
+          var tools0 = document.createElement("div");
+          tools0.className = "cat-settings-tools";
+          var ok0 = document.createElement("button");
+          ok0.type = "button";
+          ok0.textContent = "非表示にする";
+          ok0.addEventListener("click", function () { finishArchive(cat.id, null); });
+          tools0.appendChild(ok0);
+          addCancel(tools0);
+          box.appendChild(tools0);
+          return box;
+        }
+        var p = document.createElement("p");
+        p.textContent = "この分類を使っている項目が " + used + " 件あります。どうしますか？";
+        box.appendChild(p);
+        var keepBtn = document.createElement("button");
+        keepBtn.type = "button";
+        keepBtn.textContent = "項目はそのまま残して非表示";
+        keepBtn.addEventListener("click", function () { finishArchive(cat.id, null); });
+        var moveLabel = document.createElement("p");
+        moveLabel.textContent = "または、すべての項目を別の分類へ移してから非表示：";
+        box.appendChild(moveLabel);
+        var select = document.createElement("select");
+        select.setAttribute("aria-label", "移動先の分類");
+        var visible = getVisibleCategories().filter(function (c) { return c.id !== cat.id; });
+        if (!visible.length) {
+          var optEmpty = document.createElement("option");
+          optEmpty.value = "";
+          optEmpty.textContent = "（移動先がありません）";
+          select.appendChild(optEmpty);
+          select.disabled = true;
+        } else {
+          visible.forEach(function (c) {
+            var opt = document.createElement("option");
+            opt.value = c.id;
+            opt.textContent = getCategoryDisplay(c.id);
+            select.appendChild(opt);
+          });
+        }
+        var moveBtn = document.createElement("button");
+        moveBtn.type = "button";
+        moveBtn.textContent = "移して非表示";
+        moveBtn.disabled = !visible.length;
+        moveBtn.addEventListener("click", function () {
+          if (!select.value) { alert("移動先の分類を選んでください。"); return; }
+          finishArchive(cat.id, select.value);
+        });
+        var tools = document.createElement("div");
+        tools.className = "cat-settings-tools";
+        tools.appendChild(keepBtn);
+        tools.appendChild(moveBtn);
+        addCancel(tools);
+        box.appendChild(select);
+        box.appendChild(tools);
+        return box;
+      }
+
+      function beginArchiveCategory(catId) {
+        var visible = getVisibleCategories();
+        if (visible.length <= 1 && visible[0] && visible[0].id === catId) {
+          alert("表示中の分類が1つしかないため、非表示にできません。先に別の分類を追加してください。");
+          return;
+        }
+        archivePromptCatId = catId;
+        renderCategorySettings();
+      }
+
+      function finishArchive(catId, moveToId) {
+        if (moveToId) moveItemsToCategory(catId, moveToId);
+        var entry = findCategory(catId);
+        if (entry) entry.archived = true;
+        try {
+          var last = localStorage.getItem(LAST_CATEGORY_KEY);
+          if (last === catId) localStorage.setItem(LAST_CATEGORY_KEY, moveToId || getDefaultFallbackCategoryId());
+        } catch (e) {}
+        archivePromptCatId = null;
+        store.categoryLabels = categoriesToLabels(store.categories);
         save();
         syncCategoryPicker();
+        renderCategorySettings();
         render();
-        closeCategorySettings();
+      }
+
+      function moveCategoryOrder(catId, direction) {
+        var active = getSortedCategories(true).filter(function (c) { return !c.archived; });
+        var archived = getSortedCategories(true).filter(function (c) { return c.archived; });
+        var idx = -1;
+        for (var i = 0; i < active.length; i++) {
+          if (active[i].id === catId) { idx = i; break; }
+        }
+        if (idx < 0) return;
+        var swap = idx + direction;
+        if (swap < 0 || swap >= active.length) return;
+        var tmp = active[idx];
+        active[idx] = active[swap];
+        active[swap] = tmp;
+        var merged = active.concat(archived);
+        for (var j = 0; j < merged.length; j++) merged[j].order = j;
+        store.categories = merged;
+        store.categoryLabels = categoriesToLabels(merged);
+        save();
+        syncCategoryPicker();
+        renderCategorySettings();
+        render();
+      }
+
+      function addNewCategory() {
+        var label = String(catAddLabel && catAddLabel.value || "").trim();
+        var emoji = String(catAddEmoji && catAddEmoji.value || "").trim() || "📌";
+        if (!label) {
+          alert("分類名を入力してください。");
+          if (catAddLabel) catAddLabel.focus();
+          return;
+        }
+        var id = "cat-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6);
+        var maxOrder = -1;
+        (store.categories || []).forEach(function (c) {
+          var o = typeof c.order === "number" ? c.order : 0;
+          if (o > maxOrder) maxOrder = o;
+        });
+        store.categories.push({ id: id, label: label, emoji: emoji, order: maxOrder + 1, archived: false });
+        store.categoryLabels = categoriesToLabels(store.categories);
+        if (catAddLabel) catAddLabel.value = "";
+        if (catAddEmoji) catAddEmoji.value = "📌";
+        save();
+        syncCategoryPicker();
+        renderCategorySettings();
+        render();
       }
 
       function loadCollapseState() {
@@ -869,11 +1452,15 @@
         var day = normalizeDay(oldData);
         var days = {};
         days[dayKey] = day;
+        var labels = normalizeCategoryLabels(oldData && oldData.categoryLabels);
+        var categories = normalizeCategoriesArray(oldData && oldData.categories, labels);
+        categories = ensureCategoriesCoverItems(categories, days);
         return {
-          version: 3,
+          version: STORE_VERSION,
           activeDayKey: dayKey,
           days: days,
-          categoryLabels: normalizeCategoryLabels(oldData && oldData.categoryLabels)
+          categories: categories,
+          categoryLabels: categoriesToLabels(categories)
         };
       }
 
@@ -902,11 +1489,15 @@
             // version 2 or missing activeDayKey: chronologically latest, or null if empty
             activeDayKey = latestDayKey(days);
           }
+          var labels = normalizeCategoryLabels(value.categoryLabels);
+          var categories = normalizeCategoriesArray(value.categories, labels);
+          categories = ensureCategoriesCoverItems(categories, days);
           return {
-            version: 3,
+            version: STORE_VERSION,
             activeDayKey: activeDayKey,
             days: days,
-            categoryLabels: normalizeCategoryLabels(value.categoryLabels)
+            categories: categories,
+            categoryLabels: categoriesToLabels(categories)
           };
         }
         return emptyStore();
@@ -914,8 +1505,14 @@
 
       function storeNeedsCategoryMigration(parsed) {
         if (!parsed || typeof parsed !== "object") return true;
-        if (!Object.prototype.hasOwnProperty.call(parsed, "categoryLabels")) return true;
+        if (!Array.isArray(parsed.categories)) return true;
+        if (parsed.version !== STORE_VERSION) return true;
         if (!isNewFormat(parsed)) return false;
+        var hasOther3 = false;
+        for (var i = 0; i < parsed.categories.length; i++) {
+          if (parsed.categories[i] && parsed.categories[i].id === "other3") hasOther3 = true;
+        }
+        if (!hasOther3) return true;
         var dayKeys = Object.keys(parsed.days || {});
         for (var di = 0; di < dayKeys.length; di++) {
           var day = parsed.days[dayKeys[di]] || {};
@@ -925,7 +1522,6 @@
             for (var j = 0; j < arr.length; j++) {
               var c = arr[j] && arr[j].category;
               if (c === "property" || c === "other") return true;
-              if (c == null || c === "" || typeof c !== "string" || !VALID_CATEGORIES[c]) return true;
             }
           }
         }
@@ -943,7 +1539,7 @@
           var needsPersist =
             isOldFormat(parsed) ||
             !parsed ||
-            parsed.version !== 3 ||
+            parsed.version !== STORE_VERSION ||
             !Object.prototype.hasOwnProperty.call(parsed, "activeDayKey") ||
             storeNeedsCategoryMigration(parsed);
           if (needsPersist) {
@@ -969,6 +1565,8 @@
 
       function save() {
         try {
+          store.version = STORE_VERSION;
+          store.categoryLabels = categoriesToLabels(store.categories || []);
           localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
         } catch (error) {
           alert("この開き方では保存できないことがあります。ファイルをダウンロードして Chrome で開いてください。");
@@ -1062,7 +1660,8 @@
       function createItem(item, listName, dayKey, editable) {
         var li = document.createElement("li");
         var cat = normalizeCategory(item.category);
-        li.className = "item cat-" + cat;
+        li.className = "item";
+        li.style.setProperty("--cat-color", getCategoryColor(cat));
         li.setAttribute("data-category", cat);
 
         var checkbox = document.createElement("input");
@@ -1118,28 +1717,14 @@
         editCategoryPicker.setAttribute("aria-label", "分類を変更");
         editCategoryPicker.hidden = true;
         var editSelectedCat = cat;
-        var ci;
-        for (ci = 0; ci < CATEGORY_ORDER.length; ci++) {
-          (function (catId) {
-            var btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "cat-toggle cat-" + catId;
-            btn.setAttribute("data-cat", catId);
-            btn.setAttribute("aria-pressed", catId === editSelectedCat ? "true" : "false");
-            btn.textContent = "［" + (CATEGORY_EMOJI[catId] || "") + " " + getCategoryLabel(catId) + "］";
-            btn.addEventListener("click", function () {
-              editSelectedCat = catId;
-              var all = editCategoryPicker.querySelectorAll(".cat-toggle");
-              var k;
-              for (k = 0; k < all.length; k++) {
-                var id = all[k].getAttribute("data-cat");
-                all[k].setAttribute("aria-pressed", id === editSelectedCat ? "true" : "false");
-              }
-              li.className = "item editing cat-" + editSelectedCat;
-            });
-            editCategoryPicker.appendChild(btn);
-          })(CATEGORY_ORDER[ci]);
+        function rebuildEditCategoryPicker() {
+          buildCategoryPickerInto(editCategoryPicker, editSelectedCat, function (catId) {
+            editSelectedCat = catId;
+            li.style.setProperty("--cat-color", getCategoryColor(editSelectedCat));
+            rebuildEditCategoryPicker();
+          }, { includeCurrentEvenIfArchived: true });
         }
+        rebuildEditCategoryPicker();
 
         var editButton = document.createElement("button");
         editButton.className = "edit-button";
@@ -1175,13 +1760,9 @@
 
         editButton.addEventListener("click", function () {
           editSelectedCat = normalizeCategory(item.category);
-          var all = editCategoryPicker.querySelectorAll(".cat-toggle");
-          var k;
-          for (k = 0; k < all.length; k++) {
-            var id = all[k].getAttribute("data-cat");
-            all[k].setAttribute("aria-pressed", id === editSelectedCat ? "true" : "false");
-          }
-          li.className = "item editing cat-" + editSelectedCat;
+          rebuildEditCategoryPicker();
+          li.className = "item editing";
+          li.style.setProperty("--cat-color", getCategoryColor(editSelectedCat));
           checkbox.hidden = true;
           text.hidden = true;
           itemActions.hidden = true;
@@ -1220,18 +1801,33 @@
         return li;
       }
 
+      function getGroupOrderForItems(items) {
+        var order = getVisibleCategories().map(function (c) { return c.id; });
+        var present = {};
+        var i;
+        for (i = 0; i < items.length; i++) {
+          present[normalizeCategory(items[i].category)] = true;
+        }
+        getSortedCategories(true).forEach(function (c) {
+          if (present[c.id] && order.indexOf(c.id) === -1) order.push(c.id);
+        });
+        Object.keys(present).forEach(function (id) {
+          if (order.indexOf(id) === -1) order.push(id);
+        });
+        return order;
+      }
+
       function groupItemsByCategory(items) {
+        var order = getGroupOrderForItems(items);
         var groups = {};
         var i;
-        for (i = 0; i < CATEGORY_ORDER.length; i++) {
-          groups[CATEGORY_ORDER[i]] = [];
-        }
+        for (i = 0; i < order.length; i++) groups[order[i]] = [];
         for (i = 0; i < items.length; i++) {
           var cat = normalizeCategory(items[i].category);
           if (!groups[cat]) groups[cat] = [];
           groups[cat].push(items[i]);
         }
-        return groups;
+        return { groups: groups, order: order };
       }
 
       function renderList(listElement, items, listName, dayKey, editable, emptyMessage) {
@@ -1244,8 +1840,10 @@
           return;
         }
 
-        var groups = groupItemsByCategory(items);
-        for (var gi = 0; gi < CATEGORY_ORDER.length; gi++) {
+        var grouped = groupItemsByCategory(items);
+        var groups = grouped.groups;
+        var order = grouped.order;
+        for (var gi = 0; gi < order.length; gi++) {
           (function (cat) {
             var catItems = groups[cat] || [];
             if (catItems.length === 0) return;
@@ -1261,13 +1859,7 @@
             header.setAttribute("aria-expanded", collapsed ? "false" : "true");
             var label = document.createElement("span");
             label.className = "cat-header-label";
-            label.textContent =
-              (CATEGORY_EMOJI[cat] || "") +
-              " " +
-              getCategoryLabel(cat) +
-              "（" +
-              catItems.length +
-              "件）";
+            label.textContent = getCategoryDisplay(cat) + "（" + catItems.length + "件）";
             var chevron = document.createElement("span");
             chevron.className = "cat-chevron";
             chevron.textContent = collapsed ? "▶" : "▼";
@@ -1288,7 +1880,7 @@
             group.appendChild(header);
             group.appendChild(ul);
             listElement.appendChild(group);
-          })(CATEGORY_ORDER[gi]);
+          })(order[gi]);
         }
       }
 
@@ -1463,11 +2055,13 @@
           return false;
         }
         var day = ensureDay(wKey);
+        var cat = getSelectedCategory();
         day.todo.push({
           id: createId(),
           text: textValue,
-          category: getSelectedCategory()
+          category: cat
         });
+        rememberRecentCategory(cat);
         save();
         render();
         input.value = "";
@@ -1534,20 +2128,25 @@
 
         window.addPlanItem = addItem;
 
-        if (!store.categoryLabels) {
-          store.categoryLabels = Object.assign({}, DEFAULT_CATEGORY_LABELS);
+        if (!Array.isArray(store.categories) || !store.categories.length) {
+          store.categories = cloneDefaultCategories();
         }
-        syncCategoryPicker();
-        if (categoryPicker) {
-          categoryPicker.addEventListener("click", function (event) {
-            var target = event.target;
-            if (!target || !target.closest) return;
-            var btn = target.closest(".cat-toggle");
-            if (!btn || !categoryPicker.contains(btn)) return;
-            if (event.preventDefault) event.preventDefault();
-            setSelectedCategory(btn.getAttribute("data-cat"));
+        store.categoryLabels = categoriesToLabels(store.categories);
+
+        if (catEmojiPalette) {
+          EMOJI_PALETTE.forEach(function (em) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.textContent = em;
+            b.setAttribute("aria-label", "絵文字 " + em);
+            b.addEventListener("click", function () {
+              if (catAddEmoji) catAddEmoji.value = em;
+            });
+            catEmojiPalette.appendChild(b);
           });
         }
+
+        syncCategoryPicker();
 
         if (catSettingsToggle) {
           catSettingsToggle.addEventListener("click", function () {
@@ -1558,14 +2157,22 @@
             }
           });
         }
-        if (catSettingsSave) {
-          catSettingsSave.addEventListener("click", function () {
-            saveCategoryLabels();
-          });
-        }
         if (catSettingsCancel) {
           catSettingsCancel.addEventListener("click", function () {
             closeCategorySettings();
+          });
+        }
+        if (catAddButton) {
+          catAddButton.addEventListener("click", function () {
+            addNewCategory();
+          });
+        }
+        if (catAddLabel) {
+          catAddLabel.addEventListener("keydown", function (event) {
+            var key = event.key || event.keyCode;
+            if (key !== "Enter" && key !== 13) return;
+            if (event.preventDefault) event.preventDefault();
+            addNewCategory();
           });
         }
 
@@ -1654,9 +2261,10 @@
               }
 
               store = imported;
-              if (!store.categoryLabels) {
-                store.categoryLabels = Object.assign({}, DEFAULT_CATEGORY_LABELS);
+              if (!Array.isArray(store.categories) || !store.categories.length) {
+                store.categories = cloneDefaultCategories();
               }
+              store.categoryLabels = categoriesToLabels(store.categories);
               carrySourceKey = null;
               // Do not ensureDay(calendarToday) — preserve imported activeDayKey as-is.
               save();
