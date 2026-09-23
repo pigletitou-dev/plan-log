@@ -524,6 +524,155 @@
       font: inherit;
     }
 
+
+    /* 仕事の記録（検索） */
+    .search-panel {
+      padding: 10px 12px 8px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+    .search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 8px;
+      align-items: center;
+    }
+    .search-row:last-child { margin-bottom: 0; }
+    .search-label {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 700;
+      min-width: 3.2em;
+    }
+    .search-input, .search-select, .search-month, .search-date {
+      min-width: 0;
+      flex: 1 1 auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      min-height: 38px;
+      background: var(--white);
+      color: var(--text);
+      font: inherit;
+      font-size: .92rem;
+    }
+    .search-input { flex: 1 1 100%; }
+    .search-chip-row { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 auto; }
+    .search-chip {
+      min-height: 34px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--text);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .search-chip[aria-pressed="true"] {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+    .search-period-extra {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .search-summary {
+      margin: 0;
+      padding: 8px 12px;
+      background: var(--blue-light);
+      color: var(--navy);
+      font-size: .85rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+    }
+    .search-results { list-style: none; padding: 0; margin: 0; }
+    .search-row-item {
+      border-bottom: 1px solid #e8eef1;
+      border-left: 3px solid var(--cat-color, #9aa7ae);
+    }
+    .search-row-item:last-child { border-bottom: 0; }
+    .search-row-main {
+      display: flex;
+      width: 100%;
+      text-align: left;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 12px;
+      background: transparent;
+      color: var(--text);
+      border: 0;
+      border-radius: 0;
+      min-height: 48px;
+      font-weight: 600;
+    }
+    .search-row-body { flex: 1; min-width: 0; }
+    .search-row-title { display: block; overflow-wrap: anywhere; font-size: .98rem; }
+    .search-row-meta {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 500;
+    }
+    .search-status-pill {
+      flex: 0 0 auto;
+      margin-top: 2px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+    .search-status-pill.done { background: #e7f3ec; color: var(--green); }
+    .search-status-pill.todo { background: #fff6ee; color: var(--accent-dark); }
+    .search-row-detail {
+      padding: 0 12px 10px 12px;
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.55;
+    }
+    .search-row-detail dl { margin: 0; }
+    .search-row-detail dt {
+      display: inline;
+      font-weight: 700;
+      color: #5a6a73;
+    }
+    .search-row-detail dd {
+      display: inline;
+      margin: 0 12px 0 4px;
+    }
+    .search-row-detail .detail-line { margin: 0 0 4px; }
+    .reuse-button {
+      margin-top: 6px;
+      min-height: 34px;
+      padding: 4px 12px;
+      background: var(--accent-bg);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-line);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .day-browse {
+      border-top: 1px solid var(--line);
+      background: #fafbfc;
+    }
+    .day-browse > summary {
+      padding: 10px 12px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 700;
+      list-style: none;
+    }
+    .day-browse > summary::-webkit-details-marker { display: none; }
+    .day-browse > summary::before { content: "▶ "; font-size: .75rem; }
+    .day-browse[open] > summary::before { content: "▼ "; }
+
     @media (max-width: 520px) {
       .add-form { flex-direction: column; }
       .add-button { width: 100%; }
@@ -535,10 +684,10 @@
     <header>
       <h1 id="app-title">今日のプラン＆ログ</h1>
       <p class="date" id="today"></p>
-      <p class="version" id="version-label">修正版 2026-09-23e</p>
+      <p class="version" id="version-label">修正版 2026-09-23f</p>
     </header>
 
-    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-23e」が出ていれば新しいファイルです。</p>
+    <p class="open-tip" id="open-tip">チャットのプレビューではなく、ダウンロードしたファイルを Chrome で開いてください。この画面の上に「修正版 2026-09-23f」が出ていれば新しいファイルです。</p>
     <p id="boot-status" class="status-ok" hidden>動作準備OK</p>
 
     <div id="new-day-banner" class="new-day-banner" hidden>
@@ -566,8 +715,50 @@
     </div>
 
     <section id="date-list-section" aria-labelledby="date-list-title" hidden>
-      <div class="section-heading"><h2 id="date-list-title">過去のログ</h2></div>
-      <ul class="date-list" id="date-list"></ul>
+      <div class="section-heading"><h2 id="date-list-title">仕事の記録</h2></div>
+      <div class="search-panel" id="search-panel">
+        <div class="search-row">
+          <label class="search-label" for="search-keyword">検索</label>
+          <input id="search-keyword" class="search-input" type="search" placeholder="ToDo名で検索" autocomplete="off">
+        </div>
+        <div class="search-row">
+          <span class="search-label">状態</span>
+          <div class="search-chip-row" id="search-status-chips" role="group" aria-label="状態">
+            <button type="button" class="search-chip" data-status="all" aria-pressed="true">すべて</button>
+            <button type="button" class="search-chip" data-status="done" aria-pressed="false">完了</button>
+            <button type="button" class="search-chip" data-status="todo" aria-pressed="false">未完了</button>
+          </div>
+        </div>
+        <div class="search-row">
+          <label class="search-label" for="search-category">分類</label>
+          <select id="search-category" class="search-select" aria-label="分類で絞り込み"></select>
+        </div>
+        <div class="search-row">
+          <span class="search-label">期間</span>
+          <div class="search-chip-row" id="search-period-chips" role="group" aria-label="期間">
+            <button type="button" class="search-chip" data-period="month" aria-pressed="true">今月</button>
+            <button type="button" class="search-chip" data-period="lastMonth" aria-pressed="false">先月</button>
+            <button type="button" class="search-chip" data-period="pickMonth" aria-pressed="false">月を指定</button>
+            <button type="button" class="search-chip" data-period="range" aria-pressed="false">期間指定</button>
+            <button type="button" class="search-chip" data-period="last30" aria-pressed="false">最近30日</button>
+          </div>
+          <div class="search-period-extra" id="search-period-extra" hidden></div>
+        </div>
+        <div class="search-row">
+          <span class="search-label">長期</span>
+          <div class="search-chip-row" id="search-stale-chips" role="group" aria-label="長期未完了">
+            <button type="button" class="search-chip" data-stale="none" aria-pressed="true">指定なし</button>
+            <button type="button" class="search-chip" data-stale="7" aria-pressed="false">7日以上未完了</button>
+            <button type="button" class="search-chip" data-stale="30" aria-pressed="false">30日以上未完了</button>
+          </div>
+        </div>
+      </div>
+      <p class="search-summary" id="search-summary">完了：0件　未完了：0件</p>
+      <ul class="search-results" id="search-results"></ul>
+      <details class="day-browse" id="day-browse">
+        <summary>日付から見る（読み取り専用）</summary>
+        <ul class="date-list" id="date-list"></ul>
+      </details>
     </section>
 
     <section id="todo-section" class="list-section" aria-labelledby="todo-title">
@@ -583,7 +774,7 @@
     </section>
 
     <div id="secondary-nav" class="secondary-nav">
-      <button id="past-logs-button" class="quiet-link" type="button">過去のログ</button>
+      <button id="past-logs-button" class="quiet-link" type="button">仕事の記録</button>
     </div>
 
     <section class="transfer-section" aria-labelledby="transfer-title">
@@ -621,11 +812,11 @@
   <script>
     (function () {
       const STORAGE_KEY = "today-plan-log-items";
-      const VERSION = "修正版 2026-09-23e";
+      const VERSION = "修正版 2026-09-23f";
       const LAST_CATEGORY_KEY = "plan-log-last-category";
       const RECENT_CATEGORIES_KEY = "plan-log-recent-categories";
       const COLLAPSE_KEY = "plan-log-category-collapse";
-      const STORE_VERSION = 4;
+      const STORE_VERSION = 5;
       const QUICK_PICK_MAX = 4;
       const EMOJI_PALETTE = ["🏠", "💼", "📝", "📋", "🗂️", "📌", "✅", "⭐", "💡", "🛒", "🧹", "📞", "💻", "📚", "🎯", "🔧"];
       const FIXED_CAT_COLORS = {
@@ -668,6 +859,17 @@
       /** Previous activeDayKey remembered when starting a new calendar day (session) */
       let carrySourceKey = null;
       let archivePromptCatId = null;
+      var searchFilters = {
+        keyword: "",
+        status: "all",
+        category: "all",
+        period: "month",
+        monthValue: "",
+        fromDate: "",
+        toDate: "",
+        stale: "none"
+      };
+      var searchExpandedKey = null;
 
       const bootStatus = document.getElementById("boot-status");
       const input = document.getElementById("new-item");
@@ -685,6 +887,14 @@
       const pastControls = document.getElementById("past-controls");
       const dateListSection = document.getElementById("date-list-section");
       const dateList = document.getElementById("date-list");
+      const searchKeyword = document.getElementById("search-keyword");
+      const searchCategory = document.getElementById("search-category");
+      const searchStatusChips = document.getElementById("search-status-chips");
+      const searchPeriodChips = document.getElementById("search-period-chips");
+      const searchPeriodExtra = document.getElementById("search-period-extra");
+      const searchStaleChips = document.getElementById("search-stale-chips");
+      const searchSummary = document.getElementById("search-summary");
+      const searchResults = document.getElementById("search-results");
       const todoSection = document.getElementById("todo-section");
       const doneSection = document.getElementById("done-section");
       const newDayBanner = document.getElementById("new-day-banner");
@@ -1365,6 +1575,60 @@
         return Number(parts[1]) + "月" + Number(parts[2]) + "日";
       }
 
+
+      function isValidDayKey(value) {
+        return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
+      }
+
+      function daysBetween(a, b) {
+        if (!isValidDayKey(a) || !isValidDayKey(b)) return 0;
+        var pa = a.split("-").map(Number);
+        var pb = b.split("-").map(Number);
+        var da = Date.UTC(pa[0], pa[1] - 1, pa[2]);
+        var db = Date.UTC(pb[0], pb[1] - 1, pb[2]);
+        return Math.round((db - da) / 86400000);
+      }
+
+      function addDaysToKey(dayKey, delta) {
+        if (!isValidDayKey(dayKey)) return dayKey;
+        var p = dayKey.split("-").map(Number);
+        var d = new Date(p[0], p[1] - 1, p[2]);
+        d.setDate(d.getDate() + delta);
+        return toDateKey(d);
+      }
+
+      function monthLastDayKey(yearMonth) {
+        if (typeof yearMonth !== "string" || !/^\d{4}-\d{2}$/.test(yearMonth)) return null;
+        var p = yearMonth.split("-").map(Number);
+        var last = new Date(p[0], p[1], 0).getDate();
+        return yearMonth + "-" + pad2(last);
+      }
+
+      function formatJaYearMonth(yearMonth) {
+        if (typeof yearMonth !== "string" || !/^\d{4}-\d{2}$/.test(yearMonth)) return "";
+        var p = yearMonth.split("-").map(Number);
+        return p[0] + "年" + p[1] + "月";
+      }
+
+      function iterAllItems() {
+        var out = [];
+        var keys = Object.keys(store.days || {});
+        for (var i = 0; i < keys.length; i++) {
+          var dk = keys[i];
+          var day = store.days[dk] || emptyDay();
+          var todo = Array.isArray(day.todo) ? day.todo : [];
+          var done = Array.isArray(day.done) ? day.done : [];
+          var j;
+          for (j = 0; j < todo.length; j++) {
+            if (todo[j]) out.push({ item: todo[j], dayKey: dk, listName: "todo" });
+          }
+          for (j = 0; j < done.length; j++) {
+            if (done[j]) out.push({ item: done[j], dayKey: dk, listName: "done" });
+          }
+        }
+        return out;
+      }
+
       function createId() {
         return String(Date.now()) + "-" + Math.random().toString(36).slice(2, 10);
       }
@@ -1390,7 +1654,23 @@
         return keys[keys.length - 1];
       }
 
-      function normalizeItem(item, usedIds) {
+      function normalizeCarryHistory(raw) {
+        var out = [];
+        if (!Array.isArray(raw)) return out;
+        for (var i = 0; i < raw.length; i++) {
+          var h = raw[i];
+          if (!h || typeof h !== "object") continue;
+          var from = isValidDayKey(h.from) ? h.from : null;
+          var to = isValidDayKey(h.to) ? h.to : null;
+          if (!from || !to) continue;
+          var entry = { from: from, to: to };
+          if (typeof h.at === "string" && h.at.trim()) entry.at = h.at.trim();
+          out.push(entry);
+        }
+        return out;
+      }
+
+      function normalizeItem(item, usedIds, dayKey, listName) {
         if (!item || typeof item !== "object" || typeof item.text !== "string" || !item.text.trim()) {
           return null;
         }
@@ -1407,16 +1687,62 @@
         usedIds[id] = true;
 
         var out = { id: id, text: item.text.trim(), category: normalizeCategory(item.category) };
+
         if (typeof item.sourceId === "string" && item.sourceId.trim()) {
           out.sourceId = item.sourceId.trim();
         }
-        if (typeof item.completedAt === "string" && item.completedAt.trim()) {
-          out.completedAt = item.completedAt.trim();
+        if (typeof item.carriedFromId === "string" && item.carriedFromId.trim()) {
+          out.carriedFromId = item.carriedFromId.trim();
         }
+
+        if (typeof item.lineageId === "string" && item.lineageId.trim()) {
+          out.lineageId = item.lineageId.trim();
+        }
+
+        if (isValidDayKey(item.firstDayKey)) {
+          out.firstDayKey = item.firstDayKey;
+        } else if (isValidDayKey(item.originDayKey)) {
+          out.firstDayKey = item.originDayKey;
+        }
+
+        if (isValidDayKey(item.currentDayKey)) {
+          out.currentDayKey = item.currentDayKey;
+        } else if (isValidDayKey(dayKey)) {
+          out.currentDayKey = dayKey;
+        }
+
+        if (typeof item.createdAt === "string" && item.createdAt.trim()) {
+          out.createdAt = item.createdAt.trim();
+        }
+
+        if (typeof item.carryCount === "number" && isFinite(item.carryCount) && item.carryCount >= 0) {
+          out.carryCount = Math.floor(item.carryCount);
+        }
+
+        out.carryHistory = normalizeCarryHistory(item.carryHistory);
+
+        if (typeof item.reusedFromId === "string" && item.reusedFromId.trim()) {
+          out.reusedFromId = item.reusedFromId.trim();
+        }
+        if (typeof item.reusedFromLineageId === "string" && item.reusedFromLineageId.trim()) {
+          out.reusedFromLineageId = item.reusedFromLineageId.trim();
+        }
+
+        if (listName === "done") {
+          if (typeof item.completedAt === "string" && item.completedAt.trim()) {
+            out.completedAt = item.completedAt.trim();
+          }
+          if (isValidDayKey(item.completedDayKey)) {
+            out.completedDayKey = item.completedDayKey;
+          } else if (isValidDayKey(dayKey)) {
+            out.completedDayKey = dayKey;
+          }
+        }
+
         return out;
       }
 
-      function normalizeDay(day) {
+      function normalizeDay(day, dayKey) {
         var usedIds = {};
         var todo = [];
         var done = [];
@@ -1424,14 +1750,86 @@
         var srcTodo = day && Array.isArray(day.todo) ? day.todo : [];
         var srcDone = day && Array.isArray(day.done) ? day.done : [];
         for (i = 0; i < srcTodo.length; i++) {
-          var t = normalizeItem(srcTodo[i], usedIds);
+          var t = normalizeItem(srcTodo[i], usedIds, dayKey, "todo");
           if (t) todo.push(t);
         }
         for (i = 0; i < srcDone.length; i++) {
-          var d = normalizeItem(srcDone[i], usedIds);
+          var d = normalizeItem(srcDone[i], usedIds, dayKey, "done");
           if (d) done.push(d);
         }
         return { todo: todo, done: done };
+      }
+
+      function reconstructHistoryFields(days) {
+        var byId = {};
+        var itemDay = {};
+        var keys = Object.keys(days || {});
+        var i, j, dk, day, arr, item;
+
+        for (i = 0; i < keys.length; i++) {
+          dk = keys[i];
+          day = days[dk] || emptyDay();
+          ["todo", "done"].forEach(function (ln) {
+            arr = Array.isArray(day[ln]) ? day[ln] : [];
+            for (j = 0; j < arr.length; j++) {
+              item = arr[j];
+              if (!item || !item.id) continue;
+              byId[item.id] = item;
+              itemDay[item.id] = dk;
+            }
+          });
+        }
+
+        function walkToRoot(start) {
+          var chain = [start];
+          var seen = {};
+          seen[start.id] = true;
+          var cur = start;
+          while (true) {
+            var sid = cur.sourceId || cur.carriedFromId;
+            if (!sid || !byId[sid] || seen[sid]) break;
+            seen[sid] = true;
+            cur = byId[sid];
+            chain.push(cur);
+          }
+          return chain;
+        }
+
+        Object.keys(byId).forEach(function (id) {
+          item = byId[id];
+          var chain = walkToRoot(item);
+          var root = chain[chain.length - 1];
+          var livedDay = itemDay[id];
+
+          if (!item.lineageId) {
+            item.lineageId = root.lineageId || root.id;
+          }
+
+          if (!isValidDayKey(item.firstDayKey)) {
+            item.firstDayKey = root.firstDayKey || itemDay[root.id] || livedDay;
+          }
+
+          if (!isValidDayKey(item.currentDayKey)) {
+            item.currentDayKey = livedDay;
+          }
+
+          if (typeof item.carryCount !== "number" || !isFinite(item.carryCount)) {
+            item.carryCount = chain.length > 1 ? chain.length - 1 : 0;
+          }
+
+          if (!Array.isArray(item.carryHistory)) item.carryHistory = [];
+          if (item.carryHistory.length === 0 && chain.length > 1) {
+            var hist = [];
+            for (var ci = chain.length - 1; ci > 0; ci--) {
+              var fromItem = chain[ci];
+              var toItem = chain[ci - 1];
+              var fromKey = itemDay[fromItem.id];
+              var toKey = itemDay[toItem.id];
+              if (fromKey && toKey) hist.push({ from: fromKey, to: toKey });
+            }
+            item.carryHistory = hist;
+          }
+        });
       }
 
       function isOldFormat(value) {
@@ -1449,9 +1847,10 @@
       }
 
       function migrateOldToNew(oldData, dayKey) {
-        var day = normalizeDay(oldData);
+        var day = normalizeDay(oldData, dayKey);
         var days = {};
         days[dayKey] = day;
+        reconstructHistoryFields(days);
         var labels = normalizeCategoryLabels(oldData && oldData.categoryLabels);
         var categories = normalizeCategoriesArray(oldData && oldData.categories, labels);
         categories = ensureCategoriesCoverItems(categories, days);
@@ -1473,8 +1872,9 @@
           var keys = Object.keys(value.days);
           for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
-            days[k] = normalizeDay(value.days[k]);
+            days[k] = normalizeDay(value.days[k], k);
           }
+          reconstructHistoryFields(days);
           var activeDayKey;
           var hasActive = Object.prototype.hasOwnProperty.call(value, "activeDayKey");
           if (value.version >= 3 && hasActive) {
@@ -1683,8 +2083,12 @@
               var moved = from.splice(index, 1)[0];
               if (listName === "todo") {
                 moved.completedAt = new Date().toISOString();
-              } else if (moved.completedAt) {
-                delete moved.completedAt;
+                moved.completedDayKey = dayKey;
+                moved.currentDayKey = dayKey;
+              } else {
+                if (moved.completedAt) delete moved.completedAt;
+                if (moved.completedDayKey) delete moved.completedDayKey;
+                moved.currentDayKey = dayKey;
               }
               to.push(moved);
             }
@@ -1893,6 +2297,421 @@
         carryButton.hidden = !source;
       }
 
+      function getPeriodRange(filters) {
+        var today = calendarTodayKey();
+        var parts = today.split("-").map(Number);
+        var y = parts[0];
+        var m = parts[1];
+        if (filters.period === "month") {
+          return { from: y + "-" + pad2(m) + "-01", to: today, label: formatJaYearMonth(y + "-" + pad2(m)) };
+        }
+        if (filters.period === "lastMonth") {
+          var lm = m - 1;
+          var ly = y;
+          if (lm < 1) {
+            lm = 12;
+            ly -= 1;
+          }
+          var ym = ly + "-" + pad2(lm);
+          return { from: ym + "-01", to: monthLastDayKey(ym), label: formatJaYearMonth(ym) };
+        }
+        if (filters.period === "pickMonth") {
+          var mv = filters.monthValue || (y + "-" + pad2(m));
+          var last = monthLastDayKey(mv);
+          return { from: mv + "-01", to: last || today, label: formatJaYearMonth(mv) };
+        }
+        if (filters.period === "range") {
+          var from = isValidDayKey(filters.fromDate) ? filters.fromDate : "0000-01-01";
+          var to = isValidDayKey(filters.toDate) ? filters.toDate : "9999-12-31";
+          var label = "";
+          if (isValidDayKey(filters.fromDate) && isValidDayKey(filters.toDate)) {
+            label = formatJaMonthDay(filters.fromDate) + "〜" + formatJaMonthDay(filters.toDate);
+          } else if (isValidDayKey(filters.fromDate)) {
+            label = formatJaMonthDay(filters.fromDate) + "〜";
+          } else if (isValidDayKey(filters.toDate)) {
+            label = "〜" + formatJaMonthDay(filters.toDate);
+          } else {
+            label = "期間指定";
+          }
+          return { from: from, to: to, label: label };
+        }
+        if (filters.period === "last30") {
+          return {
+            from: addDaysToKey(today, -29),
+            to: today,
+            label: "最近30日"
+          };
+        }
+        return { from: "0000-01-01", to: "9999-12-31", label: "" };
+      }
+
+      function itemRelevantDayKey(item, listName) {
+        if (listName === "done") {
+          return item.completedDayKey || item.currentDayKey || item.firstDayKey || "";
+        }
+        return item.currentDayKey || item.firstDayKey || "";
+      }
+
+      function inPeriod(dayKey, range) {
+        if (!isValidDayKey(dayKey)) return false;
+        return dayKey >= range.from && dayKey <= range.to;
+      }
+
+      function syncSearchCategoryOptions() {
+        if (!searchCategory) return;
+        var prev = searchFilters.category || "all";
+        while (searchCategory.firstChild) searchCategory.removeChild(searchCategory.firstChild);
+        var optAll = document.createElement("option");
+        optAll.value = "all";
+        optAll.textContent = "すべて";
+        searchCategory.appendChild(optAll);
+
+        var cats = getSortedCategories(true).slice();
+        var used = {};
+        iterAllItems().forEach(function (entry) {
+          var cid = normalizeCategory(entry.item.category);
+          used[cid] = true;
+        });
+        cats.forEach(function (c) {
+          used[c.id] = true;
+        });
+        Object.keys(used).forEach(function (id) {
+          if (!findCategory(id)) ensureUnknownCategory(id);
+        });
+        getSortedCategories(true).forEach(function (c) {
+          var opt = document.createElement("option");
+          opt.value = c.id;
+          var label = getCategoryDisplay(c.id);
+          if (c.archived) label += "（非表示）";
+          opt.textContent = label;
+          searchCategory.appendChild(opt);
+        });
+        searchCategory.value = prev;
+        if (searchCategory.value !== prev) {
+          searchFilters.category = "all";
+          searchCategory.value = "all";
+        }
+      }
+
+      function updateSearchPeriodExtra() {
+        if (!searchPeriodExtra) return;
+        while (searchPeriodExtra.firstChild) searchPeriodExtra.removeChild(searchPeriodExtra.firstChild);
+        if (searchFilters.period === "pickMonth") {
+          searchPeriodExtra.hidden = false;
+          var monthInput = document.createElement("input");
+          monthInput.type = "month";
+          monthInput.className = "search-month";
+          monthInput.id = "search-month-input";
+          monthInput.setAttribute("aria-label", "月を指定");
+          if (!searchFilters.monthValue) {
+            var t = calendarTodayKey().split("-");
+            searchFilters.monthValue = t[0] + "-" + t[1];
+          }
+          monthInput.value = searchFilters.monthValue;
+          monthInput.addEventListener("change", function () {
+            searchFilters.monthValue = monthInput.value || "";
+            renderSearchResults();
+          });
+          searchPeriodExtra.appendChild(monthInput);
+        } else if (searchFilters.period === "range") {
+          searchPeriodExtra.hidden = false;
+          var fromInput = document.createElement("input");
+          fromInput.type = "date";
+          fromInput.className = "search-date";
+          fromInput.setAttribute("aria-label", "開始日");
+          fromInput.value = searchFilters.fromDate || "";
+          fromInput.addEventListener("change", function () {
+            searchFilters.fromDate = fromInput.value || "";
+            renderSearchResults();
+          });
+          var toInput = document.createElement("input");
+          toInput.type = "date";
+          toInput.className = "search-date";
+          toInput.setAttribute("aria-label", "終了日");
+          toInput.value = searchFilters.toDate || "";
+          toInput.addEventListener("change", function () {
+            searchFilters.toDate = toInput.value || "";
+            renderSearchResults();
+          });
+          searchPeriodExtra.appendChild(fromInput);
+          searchPeriodExtra.appendChild(toInput);
+        } else {
+          searchPeriodExtra.hidden = true;
+        }
+      }
+
+      function syncSearchChips() {
+        function syncGroup(container, attr, current) {
+          if (!container) return;
+          var buttons = container.querySelectorAll("button[" + attr + "]");
+          for (var i = 0; i < buttons.length; i++) {
+            var btn = buttons[i];
+            var val = btn.getAttribute(attr);
+            btn.setAttribute("aria-pressed", val === current ? "true" : "false");
+          }
+        }
+        syncGroup(searchStatusChips, "data-status", searchFilters.status);
+        syncGroup(searchPeriodChips, "data-period", searchFilters.period);
+        syncGroup(searchStaleChips, "data-stale", searchFilters.stale);
+        if (searchKeyword && searchKeyword.value !== searchFilters.keyword) {
+          searchKeyword.value = searchFilters.keyword;
+        }
+        updateSearchPeriodExtra();
+      }
+
+      function dedupeIncompleteEntries(entries) {
+        var best = {};
+        var active = store.activeDayKey;
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i];
+          var lid = e.item.lineageId || e.item.id;
+          var prev = best[lid];
+          if (!prev) {
+            best[lid] = e;
+            continue;
+          }
+          if (active && e.dayKey === active && prev.dayKey !== active) {
+            best[lid] = e;
+            continue;
+          }
+          if (active && prev.dayKey === active && e.dayKey !== active) continue;
+          var eCur = e.item.currentDayKey || e.dayKey;
+          var pCur = prev.item.currentDayKey || prev.dayKey;
+          if (eCur > pCur) best[lid] = e;
+        }
+        return Object.keys(best).map(function (k) { return best[k]; });
+      }
+
+      function collectSearchEntries() {
+        var range = getPeriodRange(searchFilters);
+        var kw = (searchFilters.keyword || "").trim().toLowerCase();
+        var today = calendarTodayKey();
+        var all = iterAllItems();
+        var matched = [];
+        var i;
+
+        for (i = 0; i < all.length; i++) {
+          var entry = all[i];
+          var item = entry.item;
+          var listName = entry.listName;
+          var statusOk =
+            searchFilters.status === "all" ||
+            (searchFilters.status === "done" && listName === "done") ||
+            (searchFilters.status === "todo" && listName === "todo");
+          if (!statusOk) continue;
+
+          if (searchFilters.category !== "all") {
+            if (normalizeCategory(item.category) !== searchFilters.category) continue;
+          }
+
+          if (kw) {
+            if (String(item.text || "").toLowerCase().indexOf(kw) === -1) continue;
+          }
+
+          var relevant = itemRelevantDayKey(item, listName);
+          if (searchFilters.period !== "all" && !inPeriod(relevant || entry.dayKey, range)) continue;
+
+          if (searchFilters.stale !== "none") {
+            if (listName !== "todo") continue;
+            var first = item.firstDayKey || entry.dayKey;
+            if (!isValidDayKey(first)) continue;
+            var age = daysBetween(first, today);
+            var need = Number(searchFilters.stale);
+            if (!(age >= need)) continue;
+          }
+
+          matched.push(entry);
+        }
+
+        if (searchFilters.status === "todo" || searchFilters.stale !== "none") {
+          matched = dedupeIncompleteEntries(matched);
+        } else if (searchFilters.status === "all") {
+          var doneOnes = matched.filter(function (e) { return e.listName === "done"; });
+          var todoOnes = dedupeIncompleteEntries(matched.filter(function (e) { return e.listName === "todo"; }));
+          matched = doneOnes.concat(todoOnes);
+        }
+
+        matched.sort(function (a, b) {
+          function sortKey(e) {
+            if (e.listName === "done") {
+              return e.item.completedAt || (e.item.completedDayKey || "") + "T23:59:59" || e.dayKey;
+            }
+            return (e.item.currentDayKey || e.dayKey) + "T00:00:00";
+          }
+          var ka = sortKey(a);
+          var kb = sortKey(b);
+          if (ka < kb) return 1;
+          if (ka > kb) return -1;
+          return 0;
+        });
+
+        return { entries: matched, range: range };
+      }
+
+      function reuseAsNewTodo(srcItem) {
+        var wKey = store.activeDayKey;
+        if (!wKey) {
+          if (!confirm("今日の Plan & Log がまだありません。今日を開始して追加しますか？")) {
+            return;
+          }
+          startCalendarToday();
+          wKey = store.activeDayKey;
+          if (!wKey) return;
+        }
+        var day = ensureDay(wKey);
+        var newId = createId();
+        var nowIso = new Date().toISOString();
+        day.todo.push({
+          id: newId,
+          text: srcItem.text,
+          category: normalizeCategory(srcItem.category),
+          createdAt: nowIso,
+          firstDayKey: wKey,
+          currentDayKey: wKey,
+          carryCount: 0,
+          carryHistory: [],
+          lineageId: newId,
+          reusedFromId: srcItem.id,
+          reusedFromLineageId: srcItem.lineageId || srcItem.id
+        });
+        rememberRecentCategory(normalizeCategory(srcItem.category));
+        save();
+        alert("今日のToDoに追加しました");
+        render();
+      }
+
+      function renderSearchResults() {
+        if (!searchResults || !searchSummary) return;
+        syncSearchChips();
+        syncSearchCategoryOptions();
+
+        while (searchResults.firstChild) searchResults.removeChild(searchResults.firstChild);
+
+        var collected = collectSearchEntries();
+        var entries = collected.entries;
+        var range = collected.range;
+        var doneCount = 0;
+        var todoCount = 0;
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (entries[i].listName === "done") doneCount++;
+          else todoCount++;
+        }
+
+        var summaryText = "完了：" + doneCount + "件　未完了：" + todoCount + "件";
+        if (range.label) summaryText += "　（" + range.label + "）";
+        searchSummary.textContent = summaryText;
+
+        if (entries.length === 0) {
+          var empty = document.createElement("p");
+          empty.className = "empty";
+          empty.textContent = "条件に合う記録がありません。";
+          searchResults.appendChild(empty);
+          return;
+        }
+
+        for (i = 0; i < entries.length; i++) {
+          (function (entry) {
+            var item = entry.item;
+            var listName = entry.listName;
+            var cat = normalizeCategory(item.category);
+            var rowKey = entry.dayKey + "::" + item.id;
+            var li = document.createElement("li");
+            li.className = "search-row-item";
+            li.style.setProperty("--cat-color", getCategoryColor(cat));
+
+            var main = document.createElement("button");
+            main.type = "button";
+            main.className = "search-row-main";
+            main.setAttribute("aria-expanded", searchExpandedKey === rowKey ? "true" : "false");
+
+            var body = document.createElement("div");
+            body.className = "search-row-body";
+            var title = document.createElement("span");
+            title.className = "search-row-title";
+            title.textContent = item.text;
+            var meta = document.createElement("span");
+            meta.className = "search-row-meta";
+            var dateShow = itemRelevantDayKey(item, listName) || entry.dayKey;
+            var dateLabel = isValidDayKey(dateShow) ? formatJaMonthDay(dateShow) : dateShow;
+            if (listName === "done" && item.completedDayKey) {
+              dateLabel = formatJaMonthDay(item.completedDayKey) + " 完了";
+            }
+            meta.textContent = dateLabel + "　" + getCategoryDisplay(cat);
+            body.appendChild(title);
+            body.appendChild(meta);
+
+            var pill = document.createElement("span");
+            pill.className = "search-status-pill " + (listName === "done" ? "done" : "todo");
+            pill.textContent = listName === "done" ? "完了" : "未完了";
+
+            main.appendChild(body);
+            main.appendChild(pill);
+
+            var detail = document.createElement("div");
+            detail.className = "search-row-detail";
+            detail.hidden = searchExpandedKey !== rowKey;
+
+            function addLine(label, value) {
+              if (!value) return;
+              var line = document.createElement("div");
+              line.className = "detail-line";
+              line.textContent = label + "：" + value;
+              detail.appendChild(line);
+            }
+
+            addLine("最初の登録日", item.firstDayKey ? formatJaDate(item.firstDayKey) : "");
+            addLine("いまの日", item.currentDayKey ? formatJaMonthDay(item.currentDayKey) : formatJaMonthDay(entry.dayKey));
+            if (listName === "done") {
+              addLine("完了日", item.completedDayKey ? formatJaDate(item.completedDayKey) : "");
+              if (item.completedAt) {
+                try {
+                  addLine("完了時刻", new Date(item.completedAt).toLocaleString("ja-JP"));
+                } catch (e) {
+                  addLine("完了時刻", item.completedAt);
+                }
+              }
+            }
+            addLine("引き継ぎ回数", String(item.carryCount || 0));
+            if (Array.isArray(item.carryHistory) && item.carryHistory.length) {
+              var shortHist = item.carryHistory
+                .slice(-4)
+                .map(function (h) {
+                  return formatJaMonthDay(h.from) + "→" + formatJaMonthDay(h.to);
+                })
+                .join("、");
+              addLine("引き継ぎ履歴", shortHist);
+            }
+            if (item.createdAt) {
+              try {
+                addLine("作成", new Date(item.createdAt).toLocaleString("ja-JP"));
+              } catch (e2) {
+                addLine("作成", item.createdAt);
+              }
+            }
+
+            var reuseBtn = document.createElement("button");
+            reuseBtn.type = "button";
+            reuseBtn.className = "reuse-button";
+            reuseBtn.textContent = "もう一度やる";
+            reuseBtn.addEventListener("click", function (ev) {
+              if (ev && ev.stopPropagation) ev.stopPropagation();
+              reuseAsNewTodo(item);
+            });
+            detail.appendChild(reuseBtn);
+
+            main.addEventListener("click", function () {
+              searchExpandedKey = searchExpandedKey === rowKey ? null : rowKey;
+              renderSearchResults();
+            });
+
+            li.appendChild(main);
+            li.appendChild(detail);
+            searchResults.appendChild(li);
+          })(entries[i]);
+        }
+      }
+
       function renderDateList() {
         while (dateList.firstChild) dateList.removeChild(dateList.firstChild);
         var keys = Object.keys(store.days).sort(function (a, b) {
@@ -1961,8 +2780,9 @@
           todoSection.hidden = true;
           doneSection.hidden = true;
           newDayBanner.hidden = true;
-          titleEl.textContent = "過去のログ";
-          dateEl.textContent = "日付を選んでください";
+          titleEl.textContent = "仕事の記録";
+          dateEl.textContent = "検索・絞り込み";
+          renderSearchResults();
           renderDateList();
           updateCarryButton();
           return;
@@ -2056,10 +2876,18 @@
         }
         var day = ensureDay(wKey);
         var cat = getSelectedCategory();
+        var newId = createId();
+        var nowIso = new Date().toISOString();
         day.todo.push({
-          id: createId(),
+          id: newId,
           text: textValue,
-          category: cat
+          category: cat,
+          createdAt: nowIso,
+          firstDayKey: wKey,
+          currentDayKey: wKey,
+          carryCount: 0,
+          carryHistory: [],
+          lineageId: newId
         });
         rememberRecentCategory(cat);
         save();
@@ -2080,26 +2908,54 @@
         var tDay = ensureDay(tKey);
 
         var existingSourceIds = {};
+        var existingLineages = {};
         var i;
-        for (i = 0; i < tDay.todo.length; i++) {
-          if (tDay.todo[i].sourceId) existingSourceIds[tDay.todo[i].sourceId] = true;
+        function rememberTarget(entry) {
+          if (!entry) return;
+          if (entry.sourceId) existingSourceIds[entry.sourceId] = true;
+          if (entry.carriedFromId) existingSourceIds[entry.carriedFromId] = true;
+          var lid = entry.lineageId || entry.id;
+          if (lid) existingLineages[lid] = true;
         }
-        for (i = 0; i < tDay.done.length; i++) {
-          if (tDay.done[i].sourceId) existingSourceIds[tDay.done[i].sourceId] = true;
-        }
+        for (i = 0; i < tDay.todo.length; i++) rememberTarget(tDay.todo[i]);
+        for (i = 0; i < tDay.done.length; i++) rememberTarget(tDay.done[i]);
 
         var added = 0;
+        var nowIso = new Date().toISOString();
         for (i = 0; i < yDay.todo.length; i++) {
           var src = yDay.todo[i];
           if (!src || !src.id) continue;
+          var lineage = src.lineageId || src.id;
           if (existingSourceIds[src.id]) continue;
-          tDay.todo.push({
+          if (lineage && existingLineages[lineage]) continue;
+
+          if (!src.lineageId) src.lineageId = lineage;
+          if (!isValidDayKey(src.firstDayKey)) src.firstDayKey = sourceKey;
+          if (!isValidDayKey(src.currentDayKey)) src.currentDayKey = sourceKey;
+          if (typeof src.carryCount !== "number") src.carryCount = 0;
+          if (!Array.isArray(src.carryHistory)) src.carryHistory = [];
+
+          var hist = src.carryHistory.slice();
+          hist.push({ from: sourceKey, to: tKey, at: nowIso });
+
+          var copy = {
             id: createId(),
             text: src.text,
             category: normalizeCategory(src.category),
-            sourceId: src.id
-          });
+            sourceId: src.id,
+            carriedFromId: src.id,
+            lineageId: lineage,
+            firstDayKey: src.firstDayKey || sourceKey,
+            currentDayKey: tKey,
+            carryCount: (src.carryCount || 0) + 1,
+            carryHistory: hist
+          };
+          if (typeof src.createdAt === "string" && src.createdAt) {
+            copy.createdAt = src.createdAt;
+          }
+          tDay.todo.push(copy);
           existingSourceIds[src.id] = true;
+          existingLineages[lineage] = true;
           added++;
         }
 
@@ -2214,6 +3070,48 @@
           viewingDateKey = null;
           render();
         });
+
+        function bindChipGroup(container, attr, onPick) {
+          if (!container) return;
+          container.addEventListener("click", function (event) {
+            var t = event.target;
+            while (t && t !== container && !(t.getAttribute && t.getAttribute(attr))) {
+              t = t.parentNode;
+            }
+            if (!t || t === container) return;
+            var val = t.getAttribute(attr);
+            if (val == null) return;
+            onPick(val);
+          });
+        }
+
+        bindChipGroup(searchStatusChips, "data-status", function (val) {
+          searchFilters.status = val;
+          if (val === "done") searchFilters.stale = "none";
+          renderSearchResults();
+        });
+        bindChipGroup(searchPeriodChips, "data-period", function (val) {
+          searchFilters.period = val;
+          renderSearchResults();
+        });
+        bindChipGroup(searchStaleChips, "data-stale", function (val) {
+          searchFilters.stale = val;
+          if (val !== "none") searchFilters.status = "todo";
+          renderSearchResults();
+        });
+
+        if (searchKeyword) {
+          searchKeyword.addEventListener("input", function () {
+            searchFilters.keyword = searchKeyword.value || "";
+            renderSearchResults();
+          });
+        }
+        if (searchCategory) {
+          searchCategory.addEventListener("change", function () {
+            searchFilters.category = searchCategory.value || "all";
+            renderSearchResults();
+          });
+        }
 
         exportButton.addEventListener("click", function () {
           var blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
